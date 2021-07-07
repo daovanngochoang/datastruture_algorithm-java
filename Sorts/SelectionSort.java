@@ -23,6 +23,8 @@ public class SelectionSort {
             min = 1.
     - swap order (position) of the checking value with the min value if there are any number in unsorted part smaller initial min.
 
+
+    - best, average, worst case = O(n^2)
      */
 
     public boolean isArraySorted(int[] array){
