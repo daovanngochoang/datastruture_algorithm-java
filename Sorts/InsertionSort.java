@@ -26,7 +26,7 @@ public class InsertionSort {
 
      */
 
-    public void SelectionSortArrayFor (int[] array){
+    public void insertionSortArrayFor(int[] array){
         int length = array.length;
         int item, index;
 
@@ -48,7 +48,7 @@ public class InsertionSort {
         }
     }
 
-    public void SelectionSortArrayWhile(int[] array){ // the logic background is the same as using for.
+    public void insertionSortArrayWhile(int[] array){ // the logic background is the same as using for.
         int len = array.length;
         int rIndex = 0, item , lIndex, index; // initial declare var of right index, item, left index, final index.
 
@@ -74,7 +74,7 @@ public class InsertionSort {
 
     }
 
-    public void SelectionSortArrayList(ArrayList<Integer> arrayList){
+    public void insertionSortArrayList(ArrayList<Integer> arrayList){
         int length = arrayList.size();
         int item, index;
 
@@ -115,9 +115,9 @@ public class InsertionSort {
 
         InsertionSort sort = new InsertionSort();
 
-        sort.SelectionSortArrayList(a);
-        sort.SelectionSortArrayWhile(array);
-        sort.SelectionSortArrayFor(array1);
+        sort.insertionSortArrayList(a);
+        sort.insertionSortArrayWhile(array);
+        sort.insertionSortArrayFor(array1);
         System.out.println(Arrays.toString(array));
         System.out.println(Arrays.toString(array1));
         System.out.println(a);
