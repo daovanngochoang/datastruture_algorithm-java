@@ -3,7 +3,7 @@ package Datastructures.List;
 
 import java.util.Arrays;
 
-public class ArrayListImplement<E> implements List {
+public class ArrayListImplement<E> implements List<E>{
 
 
     /*
@@ -37,21 +37,21 @@ public class ArrayListImplement<E> implements List {
     }
 
     public void appendMany ( E[] a){
-        for (Object it : a){
+        for (E it : a){
             this.append(it);
         }
     }
 
 
     @Override
-    public boolean insert(int index, Object item) {
+    public boolean insert(int index, E item) {
 
         if (listSize < maxSize){ // if size smaller than maxsize ==> do as normal
             if (index >= 0 && index < listSize){ // if index is in the list ==> insert
                 for (int i = listSize; i > index; i--){
                     listArray[i] = listArray[i-1]; // move all element after the index up 1 more index
                 }
-                listArray[index] = (E) item; // insert item to that index
+                listArray[index] = item; // insert item to that index
                 listSize ++; // increase size
                 return true;
             }
@@ -93,7 +93,7 @@ public class ArrayListImplement<E> implements List {
 
     @Override
     public boolean remove(int index) { // remove element
-        for(int i = index; i < listSize; i++){ // move all element after that item down 1 position.
+        for(int i = index; i < listSize-1; i++){ // move all element after that item down 1 position.
             listArray[i] = listArray[i+1];
         }
         listSize --; // reduce size
@@ -101,13 +101,13 @@ public class ArrayListImplement<E> implements List {
     }
 
     @Override
-    public Object get(int index) {
+    public E get(int index) {
 
         return listArray[index];
     }
 
     @Override
-    public boolean set(int index, Object item) {
+    public boolean set(int index, E item) {
         if (index >= 0 && index < listSize){
             listArray[index] = (E) item;
             return true;
@@ -131,10 +131,10 @@ public class ArrayListImplement<E> implements List {
         ArrayListImplement<Integer> a = new ArrayListImplement<>();
         Integer[] array = {1, 2, 3, 4, 5, 11, 6, 7, 8, 9, 10, 2, 3, 4, 5, 11, 6, 7, 8, 9};
         a.appendMany(array);
-
+        System.out.println(a.listSize);
 
         a.showArray();
-//        a.remove(5);
+        a.remove(5);
         System.out.println(a);
 
 
