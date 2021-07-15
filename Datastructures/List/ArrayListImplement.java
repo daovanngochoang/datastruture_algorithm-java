@@ -21,10 +21,10 @@ public class ArrayListImplement<E> implements List<E>{
     private E[] listArray;
 
 
-    ArrayListImplement(){
+    public ArrayListImplement(){
         this(defaultSize);
     }
-    ArrayListImplement(int size){
+    public ArrayListImplement(int size){
 
         maxSize = size;
         listSize = 0;
