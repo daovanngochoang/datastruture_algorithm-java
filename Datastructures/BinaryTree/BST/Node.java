@@ -1,11 +1,10 @@
-package Datastructures.BinaryTree;
+package Datastructures.BinaryTree.BST;
 
 public class Node {
     int element;
     Node leftChild;
     Node rightChild;
     Node parentNode;
-    boolean isLeaf = true;
 
     Node (int element, Node leftChild, Node rightChild, Node parentNode) {
         this.element = element;
@@ -48,10 +47,7 @@ public class Node {
     }
 
     public boolean isLeaf(){
-        return isLeaf;
+        return this.leftChild ==null && this.rightChild ==null;
     }
 
-    public void setLeaf(boolean leaf) {
-        isLeaf = leaf;
-    }
 }
