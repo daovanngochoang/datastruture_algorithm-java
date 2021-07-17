@@ -4,6 +4,12 @@ package Datastructures.BinaryTree.BalancedBST;
 import java.util.ArrayList;
 
 public class TreeAVL {
+    /*
+    https://www.javatpoint.com/avl-tree
+    https://www.tutorialspoint.com/data_structures_algorithms/avl_tree_algorithm.htm
+    https://www.geeksforgeeks.org/avl-tree-set-2-deletion/
+     */
+
 
     AVLNode root;
     static ArrayList<Integer> array;
