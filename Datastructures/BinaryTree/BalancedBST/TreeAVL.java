@@ -249,6 +249,7 @@ public class TreeAVL {
      */
         AVLNode splayedNode = node.getLeftChild(); // get backup the leftChild node which is the splayed node
         node.setLeftChild(splayedNode.getRightChild());// set the leftChild of the origin top node = the rightChild of the splayedNode.
+
         if (splayedNode.getRightChild() != null){
             node.setLeftChild(splayedNode.getRightChild());
             node.getLeftChild().setParent(node);
