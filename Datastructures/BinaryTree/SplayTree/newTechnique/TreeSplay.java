@@ -1,8 +1,5 @@
 package Datastructures.BinaryTree.SplayTree.newTechnique;
 
-import Datastructures.BinaryTree.SplayTree.myTechnique.GFG;
-import Datastructures.BinaryTree.SplayTree.myTechnique.SNode;
-
 public class TreeSplay<E> {
     node<E> root;
 
