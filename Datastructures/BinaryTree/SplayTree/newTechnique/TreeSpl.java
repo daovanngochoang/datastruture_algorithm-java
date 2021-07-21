@@ -1,7 +1,5 @@
 package Datastructures.BinaryTree.SplayTree.newTechnique;
 
-import Datastructures.BinaryTree.SplayTree.myTechnique.SNode;
-
 public class TreeSpl<E> {
 
     node<E> root ;
@@ -151,6 +149,9 @@ public class TreeSpl<E> {
 
         // bring the node to be remove to the top
         this.root = Splay(this.root, key);
+        if (this.root.key != key ){
+            return;
+        }
         // get the min parent and min node of the right side
         node<E> alterParent = finMin(this.root.rightChild);
         node<E> alternative = alterParent.leftChild;
@@ -192,6 +193,14 @@ public class TreeSpl<E> {
         test1.preOrder(test1.root);
         System.out.println("\n aa" + test1.search(test1.root, 50));
         test1.remove(50);
+        test1.remove(200);
+        test1.remove(100);
+        test1.remove(50);
+        test1.remove(50);
+        test1.remove(50);
+        test1.remove(50);
+        test1.remove(50);
+
         test1.preOrder(test1.root);
 
     }
