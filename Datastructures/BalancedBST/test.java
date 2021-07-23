@@ -1,4 +1,4 @@
-package Datastructures.BinaryTree.BalancedBST;
+package Datastructures.BalancedBST;
 
 public class test {
     public static void main (String [] args){

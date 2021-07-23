@@ -1,4 +1,4 @@
-package Datastructures.BinaryTree.SplayTree.newTechnique;
+package Datastructures.SplayTree.newTechnique;
 
 public class TreeSpl<E> {
 

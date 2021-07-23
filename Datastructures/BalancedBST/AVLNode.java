@@ -1,4 +1,4 @@
-package Datastructures.BinaryTree.BalancedBST;
+package Datastructures.BalancedBST;
 
 public class AVLNode {
     AVLNode parent;

@@ -1,4 +1,4 @@
-package Datastructures.BinaryTree.SplayTree.myTechnique;
+package Datastructures.SplayTree.myTechnique;
 
 public class TestSplay {
 

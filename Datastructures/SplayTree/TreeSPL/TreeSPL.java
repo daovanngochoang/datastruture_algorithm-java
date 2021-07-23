@@ -1,7 +1,5 @@
-package Datastructures.BinaryTree.SplayTree.TreeSPL;
+package Datastructures.SplayTree.TreeSPL;
 
-
-import Datastructures.BinaryTree.SplayTree.newTechnique.node;
 
 public class TreeSPL<E> {
 

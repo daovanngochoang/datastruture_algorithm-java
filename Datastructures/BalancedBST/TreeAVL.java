@@ -1,4 +1,4 @@
-package Datastructures.BinaryTree.BalancedBST;
+package Datastructures.BalancedBST;
 
 
 import java.util.ArrayList;
