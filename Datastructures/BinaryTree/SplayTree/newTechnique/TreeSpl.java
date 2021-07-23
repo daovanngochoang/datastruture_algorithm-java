@@ -152,26 +152,30 @@ public class TreeSpl<E> {
         if (this.root.key != key ){
             return;
         }
-        // get the min parent and min node of the right side
-        node<E> alterParent = finMin(this.root.rightChild);
-        node<E> alternative = alterParent.leftChild;
+        if (root.rightChild == null){ // if the right is null
+            this.root = root.leftChild; // remove the root and move the root to the left of original root
+        }else {
+            // get the min parent and min node of the right side
+            node<E> alterParent = finMin(this.root.rightChild);
+            node<E> alternative = alterParent.leftChild;
 
-        // because min always lie on the end of the left side ==> check the right side
-        if (alternative.rightChild != null){ // if it's right side still has a child
-            alterParent.leftChild = alternative.rightChild;
-        }else { // if it's right side is null
-            alterParent.leftChild = null;
+            // because min always lie on the end of the left side ==> check the right side
+            if (alternative.rightChild != null) { // if it's right side still has a child
+                alterParent.leftChild = alternative.rightChild;
+            } else { // if it's right side is null
+                alterParent.leftChild = null;
+            }
+            // bring the min as root
+            alternative.leftChild = root.leftChild;
+            alternative.rightChild = root.rightChild;
+
+            // in case the min lie at the right of the root
+            if (alterParent == this.root) {
+                this.root.rightChild = null;
+            }
+
+            this.root = alternative; // change root.
         }
-        // bring the min as root
-        alternative.leftChild = root.leftChild;
-        alternative.rightChild = root.rightChild;
-
-        // in case the min lie at the right of the root
-        if (alterParent == this.root){
-            this.root.rightChild = null;
-        }
-
-        this.root = alternative; // change root.
 
     }
 
