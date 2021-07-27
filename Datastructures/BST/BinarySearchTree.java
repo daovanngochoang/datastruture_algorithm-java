@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class BinarySearchTree {
 
-    Node root = null;
+    BNode root = null;
     static ArrayList<Integer> array;
 
     public void buildTree(int [] array){
@@ -24,8 +24,8 @@ public class BinarySearchTree {
                 - get the item in the smallest node from it's right branch and set to the be the item in the node we
                 going to delete, delete it's right smallest node.
          */
-        Node cur = root;
-        Node alternativeItem ;
+        BNode cur = root;
+        BNode alternativeItem ;
         while (cur.element != item){
             if (item <= cur.element){
                 cur = cur.getLeftChild();
@@ -90,16 +90,16 @@ public class BinarySearchTree {
     public void insert(int item){
 
         if (this.root == null){
-            this.root = new Node(item, null, null, null);
+            this.root = new BNode(item, null, null, null);
 
         }else {
-            Node current  = root;
+            BNode current  = root;
             while (true){
                 if (item <= current.getElement()){
                     if(!(current.getLeftChild() == null)){
                         current = current.leftChild;
                     }else {
-                        current.setLeftChild(new Node(item, null, null, current));
+                        current.setLeftChild(new BNode(item, null, null, current));
                         break;
                     }
 
@@ -107,7 +107,7 @@ public class BinarySearchTree {
                     if(!(current.getRightChild()==null)){
                         current = current.rightChild;
                     }else {
-                        current.setRightChild(new Node(item, null, null, current));
+                        current.setRightChild(new BNode(item, null, null, current));
                         break;
                     }
                 }
@@ -116,7 +116,7 @@ public class BinarySearchTree {
         }
     }
 
-    public Node findMax(Node n){
+    public BNode findMax(BNode n){
         if (n != null) {
 
             if (n.getRightChild() == null) {
@@ -128,7 +128,7 @@ public class BinarySearchTree {
         }
     }
 
-    public Node finMin(Node n){
+    public BNode finMin(BNode n){
         if (n != null){
             if (n.getLeftChild()==null){
                 return n;
@@ -139,7 +139,7 @@ public class BinarySearchTree {
         }
     }
 
-    public static void preorder(Node n){
+    public static void preorder(BNode n){
 
         if (n == null){
             System.out.println(n);
@@ -171,7 +171,7 @@ public class BinarySearchTree {
         return array.toString();
     }
 
-    public void clear (Node root){
+    public void clear (BNode root){
         if (!(root.getLeftChild()==null)){
             clear(root.getLeftChild());
         }

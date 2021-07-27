@@ -1,4 +1,4 @@
-package Datastructures.SplayTree.TreeSPL;
+package Datastructures.SplayTree.TreeSPLByMyBigBrain;
 
 
 public class TreeSPL<E> {

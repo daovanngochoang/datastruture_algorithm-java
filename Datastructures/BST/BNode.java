@@ -1,12 +1,12 @@
 package Datastructures.BST;
 
-public class Node {
+public class BNode {
     int element;
-    Node leftChild;
-    Node rightChild;
-    Node parentNode;
+    BNode leftChild;
+    BNode rightChild;
+    BNode parentNode;
 
-    Node (int element, Node leftChild, Node rightChild, Node parentNode) {
+    BNode(int element, BNode leftChild, BNode rightChild, BNode parentNode) {
         this.element = element;
         this.leftChild = leftChild;
         this.rightChild = rightChild;
@@ -22,27 +22,27 @@ public class Node {
         this.element = element;
     }
 
-    public Node getLeftChild() {
+    public BNode getLeftChild() {
         return leftChild;
     }
 
-    public void setLeftChild(Node leftChild) {
+    public void setLeftChild(BNode leftChild) {
         this.leftChild = leftChild;
     }
 
-    public Node getRightChild() {
+    public BNode getRightChild() {
         return rightChild;
     }
 
-    public void setRightChild(Node rightChild) {
+    public void setRightChild(BNode rightChild) {
         this.rightChild = rightChild;
     }
 
-    public Node getParentNode() {
+    public BNode getParentNode() {
         return parentNode;
     }
 
-    public void setParentNode(Node parentNode) {
+    public void setParentNode(BNode parentNode) {
         this.parentNode = parentNode;
     }
 

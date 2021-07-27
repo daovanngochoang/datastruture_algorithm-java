@@ -11,7 +11,7 @@ public class TreeAVL {
      */
 
 
-    AVLNode root;
+    NodeAVL root;
     static ArrayList<Integer> array;
 
 
@@ -21,11 +21,11 @@ public class TreeAVL {
         this.root = insertRecur(elem, this.root, null);
     }
 
-    public static AVLNode insertRecur (int elem, AVLNode node, AVLNode parent){
+    public static NodeAVL insertRecur (int elem, NodeAVL node, NodeAVL parent){
         // insert the item recursively
         if (node == null){
             // when it is set to be a node of a leaf node ==> return the new node
-            return new AVLNode(elem, parent);
+            return new NodeAVL(elem, parent);
         }else if(elem < node.element) { // if elem < node ==> run to the left
             node.setLeftChild(insertRecur(elem, node.getLeftChild(), node)); // set left
         }else if (elem > node.element){ //to the right
@@ -46,17 +46,17 @@ public class TreeAVL {
     public void insert (int elem){
         // insert as the insert function of binary tree
         if (this.root == null){
-            this.root = new AVLNode(elem , null);
+            this.root = new NodeAVL(elem , null);
 
         }else {
-            AVLNode current  = root;
+            NodeAVL current  = root;
             while (true){
                 if (elem == current.element) break; // not allowed duplicate
                 if (elem  < current.getElement()){
                     if(!(current.getLeftChild() == null)){
                         current = current.leftChild;
                     }else {
-                        current.setLeftChild(new AVLNode(elem , current));
+                        current.setLeftChild(new NodeAVL(elem , current));
                         break;
                     }
 
@@ -64,7 +64,7 @@ public class TreeAVL {
                     if(!(current.getRightChild()==null)){
                         current = current.rightChild;
                     }else {
-                        current.setRightChild(new AVLNode(elem , current));
+                        current.setRightChild(new NodeAVL(elem , current));
                         break;
                     }
                 }
@@ -75,7 +75,7 @@ public class TreeAVL {
         }
     }
 
-    public AVLNode findMax(AVLNode n){
+    public NodeAVL findMax(NodeAVL n){
         if (n != null) {
 
             if (n.getRightChild() == null) {
@@ -87,7 +87,7 @@ public class TreeAVL {
         }
     }
 
-    public AVLNode finMin(AVLNode n){
+    public NodeAVL finMin(NodeAVL n){
         if (n != null){
             if (n.getLeftChild()==null){
                 return n;
@@ -104,8 +104,8 @@ public class TreeAVL {
                 - get the item in the smallest node from it's right branch and set to the be the item in the node we
                 going to delete, delete it's right smallest node.
          */
-        AVLNode cur = root;
-        AVLNode alternativeItem, alterParent ;
+        NodeAVL cur = root;
+        NodeAVL alternativeItem, alterParent ;
         while (cur.element != item){
             if (item <= cur.element){
                 cur = cur.getLeftChild();
@@ -170,7 +170,7 @@ public class TreeAVL {
 
     }
 
-    public void makeBalance (AVLNode node){
+    public void makeBalance (NodeAVL node){
         while (node != null){
             reHeight(node); // set the current height after insert
             reBalance(node); // reBalance if there is imbalance branch
@@ -179,7 +179,7 @@ public class TreeAVL {
         }
     }
 
-    public void setChild(AVLNode parent, AVLNode compareNode, AVLNode newChild){
+    public void setChild(NodeAVL parent, NodeAVL compareNode, NodeAVL newChild){
         // compare the parent with its the other node that to be set as its child
         if (parent.element >= compareNode.element){ // if < parent ==> left
             parent.setLeftChild(newChild);
@@ -188,12 +188,12 @@ public class TreeAVL {
         }
     }
 
-    public static AVLNode reBalance (AVLNode node){
+    public static NodeAVL reBalance (NodeAVL node){
         // this function to check and re-balance branch.
 
         // get the left and the right of that node
-        AVLNode left = node.getLeftChild();
-        AVLNode right = node.getRightChild();
+        NodeAVL left = node.getLeftChild();
+        NodeAVL right = node.getRightChild();
 
         // check balancedFactor if the left branch - the right branch >= 2 or <= -2 that mean that branch is imbalanced.
         int balancedFactor = height(left) - height(right);
@@ -219,11 +219,11 @@ public class TreeAVL {
     }
 
 
-    static void reHeight (AVLNode node){ // set new height to the node after insert or delete
+    static void reHeight (NodeAVL node){ // set new height to the node after insert or delete
         node.setHeight(1 + Math.max(height(node.getRightChild()), height(node.getLeftChild())));
     }
 
-    static int height(AVLNode node){ // return the height of node
+    static int height(NodeAVL node){ // return the height of node
         // return -1 when null because height = 1 + max (left, right) ==. if it null then 1 + -1 = 0.
         return node==null? -1 : node.getHeight();
     }
@@ -231,7 +231,7 @@ public class TreeAVL {
 
 
     // rightRotation
-    public static AVLNode rightRotate(AVLNode node){
+    public static NodeAVL rightRotate(NodeAVL node){
 
         /*
            (parent)
@@ -247,7 +247,7 @@ public class TreeAVL {
 
 
      */
-        AVLNode splayedNode = node.getLeftChild(); // get backup the leftChild node which is the splayed node
+        NodeAVL splayedNode = node.getLeftChild(); // get backup the leftChild node which is the splayed node
         node.setLeftChild(splayedNode.getRightChild());// set the leftChild of the origin top node = the rightChild of the splayedNode.
 
         if (splayedNode.getRightChild() != null){
@@ -280,8 +280,8 @@ public class TreeAVL {
 
 
     // left Rotation
-    public static AVLNode leftRotate(AVLNode node){ // opposite with right rotation
-        AVLNode splayedNode = node.getRightChild();
+    public static NodeAVL leftRotate(NodeAVL node){ // opposite with right rotation
+        NodeAVL splayedNode = node.getRightChild();
         node.setRightChild(splayedNode.getLeftChild());
         if (splayedNode.getLeftChild() != null){
             node.setRightChild(splayedNode.getLeftChild());
@@ -303,7 +303,7 @@ public class TreeAVL {
     }
 
 
-    public static AVLNode LeftRightRotate(AVLNode node){
+    public static NodeAVL LeftRightRotate(NodeAVL node){
     /*
         in this case: the splayed node has the right > the left.
         (80)                                                     (80)
@@ -317,7 +317,7 @@ public class TreeAVL {
         return rightRotate(node);
     }
 
-    public static AVLNode RightLeftRotate(AVLNode node){
+    public static NodeAVL RightLeftRotate(NodeAVL node){
         /*
         in this case: the splayed node has the left > the right.
         (60)                                                     (60)
@@ -331,7 +331,7 @@ public class TreeAVL {
         return leftRotate(node);
     }
 
-    public void clear (AVLNode root){
+    public void clear (NodeAVL root){
         if (!(root.getLeftChild()==null)){
             clear(root.getLeftChild());
             root.setLeftChild(null);
@@ -345,7 +345,7 @@ public class TreeAVL {
         this.root = null;
     }
 
-    public static void preorder(AVLNode n){
+    public static void preorder(NodeAVL n){
         if (n != null){
 
             if (!(n.getLeftChild()==null)){

@@ -1,13 +1,13 @@
 package Datastructures.BalancedBST;
 
-public class AVLNode {
-    AVLNode parent;
-    AVLNode leftChild;
-    AVLNode rightChild;
+public class NodeAVL {
+    NodeAVL parent;
+    NodeAVL leftChild;
+    NodeAVL rightChild;
     int element;
     int height;
 
-    public AVLNode(int elem, AVLNode parent) {
+    public NodeAVL(int elem, NodeAVL parent) {
         this.parent = parent;
         this.leftChild = null;
         this.rightChild = null;
@@ -15,27 +15,27 @@ public class AVLNode {
         this.element = elem;
     }
 
-    public AVLNode getParent() {
+    public NodeAVL getParent() {
         return parent;
     }
 
-    public void setParent(AVLNode parent) {
+    public void setParent(NodeAVL parent) {
         this.parent = parent;
     }
 
-    public AVLNode getLeftChild() {
+    public NodeAVL getLeftChild() {
         return leftChild;
     }
 
-    public void setLeftChild(AVLNode leftChild) {
+    public void setLeftChild(NodeAVL leftChild) {
         this.leftChild = leftChild;
     }
 
-    public AVLNode getRightChild() {
+    public NodeAVL getRightChild() {
         return rightChild;
     }
 
-    public void setRightChild(AVLNode rightChild) {
+    public void setRightChild(NodeAVL rightChild) {
         this.rightChild = rightChild;
     }
 
