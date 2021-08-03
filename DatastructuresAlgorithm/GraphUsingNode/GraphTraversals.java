@@ -5,18 +5,9 @@ import java.util.*;
 public class GraphTraversals<E> {
 
     // this is the hashMap to contain the nodes
-    HashMap<E, GraphNode<E>> GraphNodes = new HashMap<>();
+    HashMap<E, GNode<E>> GNodes = new HashMap<>();
 
-    // this is represent to the GraphNode including it's item and it's edges to other destinations.
-    static class GraphNode<E>{
-        E item;
-        LinkedList<Edge<E>> Edges ;
-
-        GraphNode (E item){
-            this.item = item;
-            this.Edges = new LinkedList<>();
-        }
-    }
+    // this is represent to the GNode including it's item and it's edges to other destinations.
 
 
 
@@ -27,10 +18,10 @@ public class GraphTraversals<E> {
      */
     public void DFS (E initialName){
         // by organizing graph nodes in to a map ==> that will access to the node faster
-        GraphNode<E> initialNode = GraphNodes.get(initialName), toVisitItem;
+        GNode<E> initialNode = GNodes.get(initialName), toVisitItem;
 
         // create a stack that contain the destination of the current node.
-        Stack<GraphNode<E>> toVisit = new Stack<>();
+        Stack<GNode<E>> toVisit = new Stack<>();
 
         // set contain nodes that visited, using LinkedHashSet because it will organize
         // and put new nodes at the end of the set instead of putting disorderly
@@ -72,8 +63,8 @@ public class GraphTraversals<E> {
     - at to the end but one by one chek to the start.
      */
     public void BFS (E initialName){
-        GraphNode<E> initialNode = GraphNodes.get(initialName), toVisitItem;
-        Queue<GraphNode<E>> toVisit = new LinkedList<>();
+        GNode<E> initialNode = GNodes.get(initialName), toVisitItem;
+        Queue<GNode<E>> toVisit = new LinkedList<>();
         Set<E> visited = new LinkedHashSet<>();
         String visitedItems = "";
 
@@ -109,20 +100,20 @@ public class GraphTraversals<E> {
 
     public void insert(E initialName, E destinationName){
 
-        GraphNode<E> destination, initialNode;
-        destination = this.GraphNodes.get(destinationName);
-        initialNode = this.GraphNodes.get(initialName);
+        GNode<E> destination, initialNode;
+        destination = this.GNodes.get(destinationName);
+        initialNode = this.GNodes.get(initialName);
 
         if (destination == null) {
-            destination = new GraphNode<>(destinationName);
-            this.GraphNodes.put(destinationName, destination);
+            destination = new GNode<>(destinationName);
+            this.GNodes.put(destinationName, destination);
         }
 
         if (initialNode == null){
 
-            GraphNode<E> newGraphNode = new GraphNode<>(initialName);
-            this.GraphNodes.put(initialName, newGraphNode);
-            newGraphNode.Edges.add(new Edge<>(destination, 0));
+            GNode<E> newGNode = new GNode<>(initialName);
+            this.GNodes.put(initialName, newGNode);
+            newGNode.Edges.add(new Edge<>(destination, 0));
 
         }else {
             initialNode.Edges.add(new Edge<>(destination, 0));

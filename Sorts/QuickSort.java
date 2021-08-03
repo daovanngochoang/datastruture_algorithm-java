@@ -56,7 +56,7 @@ public class QuickSort {
 
      */
 
-    public void QuickSortArrayMidNonRecursion(int[] array){
+    public static void QuickSortArrayMidNonRecursion(int[] array){
 
         /*
         - we have a bunch of variables here but actually it's not complicated.
@@ -130,7 +130,7 @@ public class QuickSort {
     - this method will divide item in to array instead of index address of sub-partition
     - as the above, we arrange them and copy to the lower and higher array and all it self to handle these.
      */
-    public int[] QuickSortArrayMidRecursion(int[] array){
+    public static int[] QuickSortArrayMidRecursion(int[] array){
         int len = array.length, middleIndex = (len -1) / 2, lowerQuantity =0, higherQuantity =0;
         int[] lower = new int[len], higher = new int[len];
 
@@ -241,7 +241,7 @@ public class QuickSort {
 
     */
 
-    public void QuickSortTraditionalMethodNonRecursion(int[] array){
+    public static void QuickSortTraditionalMethodNonRecursion(int[] array){
 
         /*
         -len is the index of the ending item, start is the index of the start item
@@ -315,7 +315,7 @@ public class QuickSort {
 
 
 
-    public void QuickSortTraditionalMethodRecursion(int[] array, int start, int end){
+    public static void QuickSortTraditionalMethodRecursion(int[] array, int start, int end){
 
         if (start < end ){
             int pivotIndex = partitionArray(array, start, end);
