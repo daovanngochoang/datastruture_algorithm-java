@@ -1,4 +1,7 @@
-package DatastructuresAlgorithm.GraphUsingNode;
+package DatastructuresAlgorithm.GraphUsingNode.shortestPath;
+
+import DatastructuresAlgorithm.GraphUsingNode.Edge;
+import DatastructuresAlgorithm.GraphUsingNode.GNode;
 
 import java.util.*;
 

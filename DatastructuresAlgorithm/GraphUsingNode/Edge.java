@@ -1,10 +1,10 @@
 package DatastructuresAlgorithm.GraphUsingNode;
 
 public class Edge<E> implements Comparable<E>{
-    GNode<E> destination;
-    int weight;
+    public GNode<E> destination;
+    public int weight;
 
-    Edge (GNode<E> pointAt, int w){
+    public Edge(GNode<E> pointAt, int w){
         this.destination = pointAt;
         this.weight = w;
     }

@@ -1,17 +1,16 @@
 package DatastructuresAlgorithm.GraphUsingNode;
 
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
 
-class GNode<E> implements Comparable<GNode<E>>{
-    E item;
-    int weight;
-    LinkedList<Edge<E>> Edges ;
-    GNode<E> previous;
+public class GNode<E> implements Comparable<GNode<E>>{
+    public E item;
+    public int weight;
+    public LinkedList<Edge<E>> Edges ;
+    public GNode<E> previous;
 
-    GNode (E item){
+    public GNode(E item){
         this.item = item;
         this.weight = Integer.MAX_VALUE;
         this.Edges = new LinkedList<>();
