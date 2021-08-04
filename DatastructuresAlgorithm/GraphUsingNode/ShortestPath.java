@@ -21,13 +21,14 @@ public class ShortestPath<E> {
         }
     }
 
-    public void getShortestPath (E StartName, E DestinationName){
+    public void getSingleSourceShortestPath(E StartName, E DestinationName){
+        String name = StartName + " to "+ DestinationName + "'s ";
         resetNodes(); // reset the graph nodes
 
         GNode<E> StartNode = GraphNodes.get(StartName), destinationNode, DestinationNode = GraphNodes.get(DestinationName);
         Queue<GNode<E>> toVisit = new LinkedList<>();
         Set<E> visited = new LinkedHashSet<>();
-        int len, newDistance;
+        int len, newDistance, countC = 0, countP = 0;
         Edge<E> edge;
 
         if (StartNode != null) { // if start node is exist
@@ -40,6 +41,7 @@ public class ShortestPath<E> {
 
                 if (!visited.contains(StartNode.item)) { // if that node is not in the viSited
                     for (int i = 0; i < len; i++) { // ==> check all its edges and update the distance
+
                         edge = StartNode.Edges.get(i);
                         destinationNode = edge.destination;
                         newDistance = edge.weight + StartNode.weight; // distance = Start distance + edge distance
@@ -47,25 +49,43 @@ public class ShortestPath<E> {
                         if (newDistance < destinationNode.weight) { // if new distance < destination distance
                             destinationNode.weight = newDistance; // update destination distance.
                             destinationNode.previous = StartNode; // set the previous node is start node, that mean that way is the best way
+
                         }
                         if (!toVisit.contains(destinationNode)) toVisit.add(destinationNode); // if the destination not in the Queue ==> add to the queue.
                     }
                 }
                 visited.add(StartNode.item); // add the Start node as visited
             }
-            String a = getPath(DestinationNode); // print the path
-            System.out.println(a);
+            if (DestinationNode.weight != Integer.MAX_VALUE) {
+                String a = name + getPath(DestinationNode); // print the path
+                System.out.println(a);
+            }
         }
     }
 
 
+    /*
+    - find all shortest path from a node to others
+     */
+    public void all_pairShortestPath (){
+        for (E node : GraphNodes.keySet()){
+            for (E key : GraphNodes.keySet()) {
+                if (!key.equals(node)) {
+                    this.getSingleSourceShortestPath(node, key);
+                }
+            }
+        }
+    }
+
     private String getPath (GNode<E> Destination){ // get the path from the last
         String path = ""+ Destination.item;
-        while (Destination.previous != null){
+        int distance = Destination.weight;
+        while (Destination.previous != null) {
             path = Destination.previous.item + "--> " + path;
             Destination = Destination.previous;
         }
-        return "Path : " + path;
+        return "shortest Path : " + path + "\tshortest distance : " + distance;
+
     }
 
     public GNode<E> getNode (E nodeName){
@@ -105,7 +125,7 @@ public class ShortestPath<E> {
     public static void main (String[] args){
         ShortestPath<String> path = new ShortestPath<>();
         path.insert("V1", "V2", 2);
-        path.insert("V1", "V4", 1);
+        path.insert("V1", "V4", 11);
         path.insert("V2", "V4", 3);
         path.insert("V2", "V5", 10);
         path.insert("V3", "V1", 4);
@@ -118,9 +138,11 @@ public class ShortestPath<E> {
         path.insert("V7", "V6", 1);
 
 
-        path.getShortestPath("V1", "V5");
-        path.getShortestPath("V2", "V6");
-        path.getShortestPath("V1", "V6");
+        path.getSingleSourceShortestPath("V1", "V5");
+        path.getSingleSourceShortestPath("V2", "V6");
+        path.getSingleSourceShortestPath("V1", "V6");
+        path.all_pairShortestPath();
+
 
 
 
