@@ -10,27 +10,37 @@ public class PrimsAlgorithm<E>{
     // this is the hashMap to contain the nodes
     HashMap<E, GNode<E>> GraphNodes = new HashMap<>();
 
+
+
+
     private void reArrange (LinkedList<GNode<E>> list){
         sort<E> GnodeSort = new sort<E>();
         GnodeSort.QuickSortTraditionalMethodNonRecursion2(list);
 
     }
+
+
     private void resetNodes (){
         for (GNode<E> node : GraphNodes.values()){
             node.resetWeight();
         }
     }
 
+
     private String getPath (E StartName){
         String Result ="";
         return getPathFromMST(StartName, Result);
 
     }
+
+
     private String getPathRecur (E StartName){
         String Result ="";
         return getPathFromMSTRecursive(StartName);
 
     }
+
+
 
     // recursive as DFS
     private String getPathFromMSTRecursive(E StartName){
@@ -71,6 +81,9 @@ public class PrimsAlgorithm<E>{
 
         return result;
     }
+
+
+
     // this is the same as the above algorithm but it is implemented by using while and stack.
     private String getPathFromMST (E StartName, String result){
         GNode<E> startNode, destinationNode;
@@ -114,7 +127,10 @@ public class PrimsAlgorithm<E>{
         return result;
     }
 
-    public void getSingleSourceShortestPath(E StartName) {
+
+
+    // this function get the source path of the Minimum Spanning Tree
+    public void getMSTPath(E StartName) {
 
         resetNodes(); // reset the graph nodes
 
@@ -161,6 +177,8 @@ public class PrimsAlgorithm<E>{
     }
 
 
+
+
     public void insert(E StartName, E destinationName, int distance){
 
         GNode<E> destination, StartNode;
@@ -187,6 +205,14 @@ public class PrimsAlgorithm<E>{
             gNode.SortList();
         }
     }
+
+
+
+
+
+
+
+
 
     public static void main (String[] args){
 //        Queue<GNode<String>> test = new LinkedList<>();
@@ -239,7 +265,7 @@ public class PrimsAlgorithm<E>{
         prim2.insert("V7", "V6", 1);
 
 
-        prim2.getSingleSourceShortestPath("V3");
+        prim2.getMSTPath("V3");
 
 
 
