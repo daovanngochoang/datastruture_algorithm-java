@@ -3,6 +3,7 @@ package DatastructuresAlgorithm.GraphUsingNode.shortestPath;
 import DatastructuresAlgorithm.GraphUsingNode.Edge;
 import DatastructuresAlgorithm.GraphUsingNode.GNode;
 
+import java.awt.geom.Path2D;
 import java.util.*;
 
 /*
@@ -145,12 +146,45 @@ public class ShortestPath<E> {
         path.insert("Long An", "Ca Mau", 1);
 
 
-        path.getSingleSourceShortestPath("HCM City", "Hai Phong");
-        path.getSingleSourceShortestPath("Ha Noi", "Ca Mau");
-        path.getSingleSourceShortestPath("HCM City", "Ca Mau");
-        path.all_pairShortestPath();
+//        path.getSingleSourceShortestPath("HCM City", "Hai Phong");
+//        path.getSingleSourceShortestPath("Ha Noi", "Ca Mau");
+//        path.getSingleSourceShortestPath("HCM City", "Ca Mau");
+//        path.all_pairShortestPath();
 
+        ShortestPath<String> Path2 = new ShortestPath<>();
 
+        Path2.insert("V1", "V2", 2);
+        Path2.insert("V1", "V3", 4);
+        Path2.insert("V1", "V4", 1);
+
+        Path2.insert("V2", "V1", 2);
+        Path2.insert("V2", "V4", 3);
+        Path2.insert("V2", "V5", 10);
+
+        Path2.insert("V3", "V1", 4);
+        Path2.insert("V3", "V4", 2);
+        Path2.insert("V3", "V6", 5);
+
+        Path2.insert("V4", "V1", 1);
+        Path2.insert("V4", "V2", 3);
+        Path2.insert("V4", "V3", 2);
+        Path2.insert("V4", "V5", 7);
+        Path2.insert("V4", "V6", 8);
+        Path2.insert("V4", "V7", 4);
+
+        Path2.insert("V5", "V2", 10);
+        Path2.insert("V5", "V4", 7);
+        Path2.insert("V5", "V7", 6);
+
+        Path2.insert("V6", "V3", 5);
+        Path2.insert("V6", "V4", 8);
+        Path2.insert("V6", "V7", 1);
+
+        Path2.insert("V7", "V4", 4);
+        Path2.insert("V7", "V5", 6);
+        Path2.insert("V7", "V6", 1);
+        Path2.getSingleSourceShortestPath("V6", "V2");
+        Path2.all_pairShortestPath();
 
 
 
