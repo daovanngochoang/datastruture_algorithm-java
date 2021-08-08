@@ -1,9 +1,9 @@
-package DatastructuresAlgorithm.GraphUsingNode.shortestPath;
+package DynamicProgramming.Graph.shortestPath;
 
-import DatastructuresAlgorithm.GraphUsingNode.Edge;
-import DatastructuresAlgorithm.GraphUsingNode.GNode;
+import DynamicProgramming.Graph.Edge;
+import DynamicProgramming.Graph.GNode;
+import DynamicProgramming.Graph.sort;
 
-import java.awt.geom.Path2D;
 import java.util.*;
 
 /*
@@ -21,9 +21,23 @@ public class ShortestPath<E> {
 
     private void resetNodes (){
         for (GNode<E> node : GraphNodes.values()){
-            node.resetWeight();
+            node.weight = Integer.MAX_VALUE;
+            node.previous = null;
         }
     }
+
+
+
+
+    private void reArrange (LinkedList<GNode<E>> list){
+        sort<E> GnodeSort = new sort<E>();
+        GnodeSort.QuickSortTraditionalMethodNonRecursion2(list);
+
+    }
+
+
+
+
 
     public void getSingleSourceShortestPath(E StartName, E DestinationName) {
         String name = StartName + " => " + DestinationName + "'s ";
@@ -31,13 +45,13 @@ public class ShortestPath<E> {
         if (!StartName.equals(DestinationName)) {
             resetNodes(); // reset the graph nodes
 
-            GNode<E> StartNode = GraphNodes.get(StartName), destinationNode, DestinationNode = GraphNodes.get(DestinationName);
+            GNode<E> StartNode = GraphNodes.get(StartName), currentDestinationNode, DestinationNode = GraphNodes.get(DestinationName);
             Queue<GNode<E>> toVisit = new LinkedList<>();
             Set<E> visited = new LinkedHashSet<>();
-            int len, newDistance, countC = 0, countP = 0;
+            int len, newDistance;
             Edge<E> edge;
 
-            if (StartNode != null) { // if start node is exist
+            if (StartNode != null && DestinationNode != null) { // if start node is exist
                 toVisit.add(StartNode); // add start node to the toVisit queue
                 StartNode.weight = 0; // change the start node's weight tobe 0
 
@@ -49,19 +63,20 @@ public class ShortestPath<E> {
                         for (int i = 0; i < len; i++) { // ==> check all its edges and update the distance
 
                             edge = StartNode.Edges.get(i);
-                            destinationNode = edge.destination;
+                            currentDestinationNode = edge.destination;
                             newDistance = edge.weight + StartNode.weight; // distance = Start distance + edge distance
 
-                            if (newDistance < destinationNode.weight) { // if new distance < destination distance
-                                destinationNode.weight = newDistance; // update destination distance.
-                                destinationNode.previous = StartNode; // set the previous node is start node, that mean that way is the best way
+                            if (newDistance < currentDestinationNode.weight) { // if new distance < destination distance
+                                currentDestinationNode.weight = newDistance; // update destination distance.
+                                currentDestinationNode.previous = StartNode; // set the previous node is start node, that mean that way is the best way
 
                             }
-                            if (!toVisit.contains(destinationNode))
-                                toVisit.add(destinationNode); // if the destination not in the Queue ==> add to the queue.
+                            if (!toVisit.contains(currentDestinationNode))
+                                toVisit.add(currentDestinationNode); // if the destination not in the Queue ==> add to the queue.
                         }
                     }
                     visited.add(StartNode.item); // add the Start node as visited
+                    this.reArrange((LinkedList<GNode<E>>) toVisit);
                 }
                 if (DestinationNode.weight != Integer.MAX_VALUE) {
                     String a = name + getPath(DestinationNode)+"\n"; // print the path
@@ -80,6 +95,7 @@ public class ShortestPath<E> {
             for (E key : GraphNodes.keySet()) {
                 if (!key.equals(node)) {
                     this.getSingleSourceShortestPath(node, key);
+
                 }
             }
         }
@@ -115,6 +131,7 @@ public class ShortestPath<E> {
         if (StartNode == null){ // if start is not exist
 
             GNode<E> newGNode = new GNode<>(StartName);
+            StartNode = newGNode;
             this.GraphNodes.put(StartName, newGNode); // add create start
             newGNode.Edges.add(new Edge<>(destination, distance)); // add the edge from start to destination
 
@@ -123,9 +140,13 @@ public class ShortestPath<E> {
         }
 
         // sort the list of that node to get the order from smaller to larger
-        for (GNode<E> gNode: GraphNodes.values()){
-            gNode.SortList();
-        }
+        SortList(StartNode);
+
+    }
+
+    public void SortList (GNode<E> gNode){
+        sort<E> eSort = new sort<>();
+        eSort.QuickSortTraditionalMethodNonRecursion(gNode.Edges);
     }
 
 

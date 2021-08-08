@@ -1,4 +1,4 @@
-package DatastructuresAlgorithm.GraphUsingNode;
+package DynamicProgramming.Graph;
 
 
 import java.util.LinkedList;
@@ -16,15 +16,6 @@ public class GNode<E> implements Comparable<GNode<E>>{
         this.Edges = new LinkedList<>();
     }
 
-    public void SortList (){
-        sort<E> eSort = new sort<>();
-        eSort.QuickSortTraditionalMethodNonRecursion(this.Edges);
-    }
-
-    public void resetWeight(){
-        this.weight = Integer.MAX_VALUE;
-        this.previous = null;
-    }
 
     @Override
     public String toString() {

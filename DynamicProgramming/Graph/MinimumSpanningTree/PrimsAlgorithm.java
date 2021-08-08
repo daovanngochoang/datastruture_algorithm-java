@@ -1,8 +1,8 @@
-package DatastructuresAlgorithm.GraphUsingNode.MinimumSpanningTree;
+package DynamicProgramming.Graph.MinimumSpanningTree;
 
-import DatastructuresAlgorithm.GraphUsingNode.Edge;
-import DatastructuresAlgorithm.GraphUsingNode.GNode;
-import DatastructuresAlgorithm.GraphUsingNode.sort;
+import DynamicProgramming.Graph.Edge;
+import DynamicProgramming.Graph.GNode;
+import DynamicProgramming.Graph.sort;
 
 import java.util.*;
 
@@ -22,7 +22,7 @@ public class PrimsAlgorithm<E>{
 
     private void resetNodes (){
         for (GNode<E> node : GraphNodes.values()){
-            node.resetWeight();
+            node.weight = Integer.MAX_VALUE;
         }
     }
 
@@ -35,7 +35,6 @@ public class PrimsAlgorithm<E>{
 
 
     private String getPathRecur (E StartName){
-        String Result ="";
         return getPathFromMSTRecursive(StartName);
 
     }
@@ -202,10 +201,16 @@ public class PrimsAlgorithm<E>{
 
         // sort the list of that node to get the order from smaller to larger
         for (GNode<E> gNode: GraphNodes.values()){
-            gNode.SortList();
+            SortList(gNode);
         }
     }
 
+
+
+    public void SortList (GNode<E> gNode){
+        sort<E> eSort = new sort<>();
+        eSort.QuickSortTraditionalMethodNonRecursion(gNode.Edges);
+    }
 
 
 
@@ -267,7 +272,9 @@ public class PrimsAlgorithm<E>{
 
         prim2.getMSTPath("V3");
 
-
+//        while (true){
+//            System.out.println("Địt");
+//        }
 
 
     }

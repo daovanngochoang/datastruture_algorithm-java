@@ -1,4 +1,4 @@
-package DatastructuresAlgorithm.GraphUsingNode;
+package DynamicProgramming.Graph;
 
 
 import java.util.LinkedList;

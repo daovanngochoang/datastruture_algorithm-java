@@ -1,7 +1,7 @@
-package DatastructuresAlgorithm.GraphUsingNode.shortestPath;
+package DynamicProgramming.Graph.shortestPath;
 
-import DatastructuresAlgorithm.GraphUsingNode.Edge;
-import DatastructuresAlgorithm.GraphUsingNode.GNode;
+import DynamicProgramming.Graph.Edge;
+import DynamicProgramming.Graph.GNode;
 
 import java.util.*;
 
@@ -139,7 +139,40 @@ public class GraphTraversals<E> {
         graph.insert("Phu Quoc","Ha Noi" );
 
         graph.DFS("HCM city");
-//        graph.BFS("HCM city");
+        graph.BFS("HCM city");
+
+        GraphTraversals<String> Graph2 = new GraphTraversals<>();
+        Graph2.insert("V1", "V2");
+        Graph2.insert("V1", "V3");
+        Graph2.insert("V1", "V4");
+
+        Graph2.insert("V2", "V1");
+        Graph2.insert("V2", "V4");
+        Graph2.insert("V2", "V5");
+
+        Graph2.insert("V3", "V1");
+        Graph2.insert("V3", "V4");
+        Graph2.insert("V3", "V6");
+
+        Graph2.insert("V4", "V1");
+        Graph2.insert("V4", "V2");
+        Graph2.insert("V4", "V3");
+        Graph2.insert("V4", "V5");
+        Graph2.insert("V4", "V6");
+        Graph2.insert("V4", "V7");
+
+        Graph2.insert("V5", "V2");
+        Graph2.insert("V5", "V4");
+        Graph2.insert("V5", "V7");
+
+        Graph2.insert("V6", "V3");
+        Graph2.insert("V6", "V4");
+        Graph2.insert("V6", "V7");
+
+        Graph2.insert("V7", "V4");
+        Graph2.insert("V7", "V5");
+        Graph2.insert("V7", "V6");
+        Graph2.DFS("V3");
 
 
 

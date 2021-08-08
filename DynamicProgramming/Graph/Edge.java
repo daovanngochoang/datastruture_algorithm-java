@@ -1,4 +1,4 @@
-package DatastructuresAlgorithm.GraphUsingNode;
+package DynamicProgramming.Graph;
 
 public class Edge<E> implements Comparable<E>{
     public GNode<E> destination;
