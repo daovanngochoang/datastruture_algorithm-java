@@ -48,13 +48,48 @@ public class MyOwnMaxFlowAlgorithm<E> {
 
      */
 
+//    private void constructLevel(E StartName, E DestinationName) {
+//
+//        if (!StartName.equals(DestinationName)) {
+//
+//            Node<E> StartNode = GraphNodes.get(StartName), destinationNode;
+//            Queue<Node<E>> toVisit = new LinkedList<>();
+//            Set<E> visited = new LinkedHashSet<>();
+//            int len;
+//            Edge<E> edge;
+//
+//            if (StartNode != null) { // if start node is exist
+//                toVisit.add(StartNode); // add start node to the toVisit queue
+//                StartNode.level = 0;
+//
+//                while (!toVisit.isEmpty()) { // if the toVisit queue is not empty
+//                    StartNode = toVisit.remove(); // get the start node
+//                    len = StartNode.Edges.size();
+//
+//                    if (!visited.contains(StartNode.item)) { // if that node is not in the viSited
+//                        for (int i = 0; i < len; i++) { // ==> check all its edges and update the distance
+//
+//                            edge = StartNode.Edges.get(i);
+//                            destinationNode = edge.destination;
+//                            if (destinationNode.level != StartNode.level) destinationNode.level = StartNode.level + 1;
+//
+//                            if (!toVisit.contains(destinationNode))
+//                                toVisit.add(destinationNode); // if the destination not in the Queue ==> add to the queue.
+//                        }
+//                    }
+//                    visited.add(StartNode.item); // add the Start node as visited
+//
+//                }
+//            }
+//        }
+//    }
+
     private void constructLevel(E StartName, E DestinationName) {
 
         if (!StartName.equals(DestinationName)) {
 
             Node<E> StartNode = GraphNodes.get(StartName), destinationNode;
             Queue<Node<E>> toVisit = new LinkedList<>();
-            Set<E> visited = new LinkedHashSet<>();
             int len;
             Edge<E> edge;
 
@@ -66,24 +101,25 @@ public class MyOwnMaxFlowAlgorithm<E> {
                     StartNode = toVisit.remove(); // get the start node
                     len = StartNode.Edges.size();
 
-                    if (!visited.contains(StartNode.item)) { // if that node is not in the viSited
-                        for (int i = 0; i < len; i++) { // ==> check all its edges and update the distance
 
-                            edge = StartNode.Edges.get(i);
-                            destinationNode = edge.destination;
-                            if (destinationNode.level != StartNode.level) destinationNode.level = StartNode.level + 1;
+                    for (int i = 0; i < len; i++) { // ==> check all its edges and update the level
+
+                        edge = StartNode.Edges.get(i);
+                        destinationNode = edge.destination;
+
+                        if (destinationNode.level == -1 || StartNode.level < destinationNode.level) {
+                            destinationNode.level = StartNode.level + 1;
+
 
                             if (!toVisit.contains(destinationNode))
                                 toVisit.add(destinationNode); // if the destination not in the Queue ==> add to the queue.
                         }
                     }
-                    visited.add(StartNode.item); // add the Start node as visited
-
                 }
+
             }
         }
     }
-
 
 
     /*
@@ -186,7 +222,7 @@ public class MyOwnMaxFlowAlgorithm<E> {
                         && edge.destination.level <= desNode.level
                      */
                             // get the edge that has the destination satisfied with these condition.
-                            if (currentNode.level <= edge.destination.level && edge.Capability - edge.weight != 0) {
+                            if (currentNode.level <= edge.destination.level && edge.Capability - edge.weight != 0 && !toVisitNode.contains(edge.destination)) {
 
                                 toVisitNode.push(edge.destination);
                                 toVisitEdges.push(edge);
@@ -257,41 +293,73 @@ public class MyOwnMaxFlowAlgorithm<E> {
     }
 
     public static void main(String[] args) {
-        MyOwnMaxFlowAlgorithm<String> myOwnMaxFlowAlgorithm = new MyOwnMaxFlowAlgorithm<>();
+//        MyOwnMaxFlowAlgorithm<String> myOwnMaxFlowAlgorithm = new MyOwnMaxFlowAlgorithm<>();
+//
+//
+//        myOwnMaxFlowAlgorithm.insert("V0", "V1", 7);
+//        myOwnMaxFlowAlgorithm.insert("V0", "V2", 2);
+//        myOwnMaxFlowAlgorithm.insert("V0", "V3", 1);
+//
+//        myOwnMaxFlowAlgorithm.insert("V1", "V4", 2);
+//        myOwnMaxFlowAlgorithm.insert("V1", "V5", 4);
+//
+//        myOwnMaxFlowAlgorithm.insert("V2", "V5", 5);
+//        myOwnMaxFlowAlgorithm.insert("V2", "V6", 6);
+//
+//        myOwnMaxFlowAlgorithm.insert("V3", "V4", 4);
+//        myOwnMaxFlowAlgorithm.insert("V3", "V8", 8);
+//        myOwnMaxFlowAlgorithm.insert("V3", "V11", 8);
+//        myOwnMaxFlowAlgorithm.insert("V11", "V12", 8);
+//        myOwnMaxFlowAlgorithm.insert("V12", "V13", 8);
+//        myOwnMaxFlowAlgorithm.insert("V13", "V14", 8);
+//
+//
+//        myOwnMaxFlowAlgorithm.insert("V4", "V7", 7);
+//        myOwnMaxFlowAlgorithm.insert("V4", "V8", 1);
+//
+//        myOwnMaxFlowAlgorithm.insert("V5", "V7", 3);
+//        myOwnMaxFlowAlgorithm.insert("V5", "V9", 3);
+//        myOwnMaxFlowAlgorithm.insert("V5", "V6", 8);
+//
+//        myOwnMaxFlowAlgorithm.insert("V6", "V9", 3);
+//
+//        myOwnMaxFlowAlgorithm.insert("V7", "V10", 1);
+//
+//        myOwnMaxFlowAlgorithm.insert("V8", "V10", 3);
+//        myOwnMaxFlowAlgorithm.insert("V9", "V10", 4);
+
+//        System.out.println(myOwnMaxFlowAlgorithm.getOptimumPathFlow("V0", "V10"));
+
+        MyOwnMaxFlowAlgorithm<String> MaxFlowAlgorithmUpgrade = new MyOwnMaxFlowAlgorithm<>();
+        MaxFlowAlgorithmUpgrade.insert("V0", "V1", 5);
+        MaxFlowAlgorithmUpgrade.insert("V0", "V2", 10);
+        MaxFlowAlgorithmUpgrade.insert("V0", "V3", 5);
+
+        MaxFlowAlgorithmUpgrade.insert("V1", "V4", 10);
+
+        MaxFlowAlgorithmUpgrade.insert("V2", "V1", 15);
+        MaxFlowAlgorithmUpgrade.insert("V2", "V5", 20);
+
+        MaxFlowAlgorithmUpgrade.insert("V3", "V6", 10);
+
+        MaxFlowAlgorithmUpgrade.insert("V4", "V7", 10);
+        MaxFlowAlgorithmUpgrade.insert("V4", "V5", 25);
+
+        MaxFlowAlgorithmUpgrade.insert("V5", "V8", 30);
+        MaxFlowAlgorithmUpgrade.insert("V5", "V3", 5);
 
 
-        myOwnMaxFlowAlgorithm.insert("V0", "V1", 7);
-        myOwnMaxFlowAlgorithm.insert("V0", "V2", 2);
-        myOwnMaxFlowAlgorithm.insert("V0", "V3", 1);
+        MaxFlowAlgorithmUpgrade.insert("V6", "V8", 5);
+        MaxFlowAlgorithmUpgrade.insert("V6", "V9", 10);
 
-        myOwnMaxFlowAlgorithm.insert("V1", "V4", 2);
-        myOwnMaxFlowAlgorithm.insert("V1", "V5", 4);
+        MaxFlowAlgorithmUpgrade.insert("V7", "V10", 5);
 
-        myOwnMaxFlowAlgorithm.insert("V2", "V5", 5);
-        myOwnMaxFlowAlgorithm.insert("V2", "V6", 6);
+        MaxFlowAlgorithmUpgrade.insert("V8", "V10", 15);
+        MaxFlowAlgorithmUpgrade.insert("V8", "V4", 15);
+        MaxFlowAlgorithmUpgrade.insert("V8", "V9", 5);
 
-        myOwnMaxFlowAlgorithm.insert("V3", "V4", 4);
-        myOwnMaxFlowAlgorithm.insert("V3", "V8", 8);
-        myOwnMaxFlowAlgorithm.insert("V3", "V11", 8);
-        myOwnMaxFlowAlgorithm.insert("V11", "V12", 8);
-        myOwnMaxFlowAlgorithm.insert("V12", "V13", 8);
-        myOwnMaxFlowAlgorithm.insert("V13", "V14", 8);
+        MaxFlowAlgorithmUpgrade.insert("V9", "V10", 10);
 
-
-        myOwnMaxFlowAlgorithm.insert("V4", "V7", 7);
-        myOwnMaxFlowAlgorithm.insert("V4", "V8", 1);
-
-        myOwnMaxFlowAlgorithm.insert("V5", "V7", 3);
-        myOwnMaxFlowAlgorithm.insert("V5", "V9", 3);
-        myOwnMaxFlowAlgorithm.insert("V5", "V6", 8);
-
-        myOwnMaxFlowAlgorithm.insert("V6", "V9", 3);
-
-        myOwnMaxFlowAlgorithm.insert("V7", "V10", 1);
-
-        myOwnMaxFlowAlgorithm.insert("V8", "V10", 3);
-        myOwnMaxFlowAlgorithm.insert("V9", "V10", 4);
-
-        System.out.println(myOwnMaxFlowAlgorithm.getOptimumPathFlow("V0", "V10"));
+        MaxFlowAlgorithmUpgrade.getOptimumPathFlow("V0", "V10");
     }
 }

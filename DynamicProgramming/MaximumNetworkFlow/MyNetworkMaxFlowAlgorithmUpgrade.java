@@ -208,7 +208,7 @@ public class MyNetworkMaxFlowAlgorithmUpgrade<E> {
                         && edge.destination.level <= desNode.level
                      */
                                 // get the edge that has the destination satisfied with these condition.
-                                if (currentNode.level <= edge.destination.level
+                                if (currentNode.level <= edge.destination.level && !toVisitNode.contains(edge.destination)
                                         && edge.Capability - edge.weight != 0 && !visitedNodeInPath.contains(edge.destination)) {
 
                                     toVisitNode.push(edge.destination);
@@ -294,70 +294,70 @@ public class MyNetworkMaxFlowAlgorithmUpgrade<E> {
     }
 
     public static void main(String[] args) {
-        MyNetworkMaxFlowAlgorithmUpgrade<String> myNetworkMaxFlowAlgorithmUpgrade = new MyNetworkMaxFlowAlgorithmUpgrade<>();
-
-
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V0", "V1", 7);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V0", "V2", 2);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V0", "V3", 1);
-
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V1", "V0", 7);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V2", "V0", 2);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V3", "V0", 1);
-
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V1", "V4", 2);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V1", "V5", 4);
-
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V4", "V1", 2);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V5", "V1", 4);
-
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V2", "V5", 5);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V2", "V6", 6);
-
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V5", "V2", 5);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V6", "V2", 6);
-
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V3", "V4", 4);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V3", "V8", 8);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V3", "V11", 8);
-
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V4", "V3", 4);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V8", "V3", 8);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V11", "V3", 8);
-
-
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V11", "V12", 8);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V12", "V13", 8);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V13", "V14", 8);
-
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V4", "V7", 7);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V4", "V8", 1);
-
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V7", "V4", 7);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V8", "V4", 1);
-
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V5", "V7", 3);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V5", "V9", 3);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V5", "V6", 8);
-
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V7", "V5", 3);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V9", "V5", 3);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V6", "V5", 8);
-
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V6", "V9", 3);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V9", "V6", 3);
-
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V7", "V10", 1);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V10", "V7", 1);
-
-
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V8", "V10", 3);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V9", "V10", 4);
-
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V10", "V8", 3);
-        myNetworkMaxFlowAlgorithmUpgrade.insert("V10", "V9", 4);
-
-        myNetworkMaxFlowAlgorithmUpgrade.getOptimumPathFlow("V0", "V10");
+//        MyNetworkMaxFlowAlgorithmUpgrade<String> myNetworkMaxFlowAlgorithmUpgrade = new MyNetworkMaxFlowAlgorithmUpgrade<>();
+//
+//
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V0", "V1", 7);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V0", "V2", 2);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V0", "V3", 1);
+//
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V1", "V0", 7);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V2", "V0", 2);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V3", "V0", 1);
+//
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V1", "V4", 2);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V1", "V5", 4);
+//
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V4", "V1", 2);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V5", "V1", 4);
+//
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V2", "V5", 5);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V2", "V6", 6);
+//
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V5", "V2", 5);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V6", "V2", 6);
+//
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V3", "V4", 4);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V3", "V8", 8);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V3", "V11", 8);
+//
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V4", "V3", 4);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V8", "V3", 8);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V11", "V3", 8);
+//
+//
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V11", "V12", 8);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V12", "V13", 8);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V13", "V14", 8);
+//
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V4", "V7", 7);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V4", "V8", 1);
+//
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V7", "V4", 7);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V8", "V4", 1);
+//
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V5", "V7", 3);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V5", "V9", 3);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V5", "V6", 8);
+//
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V7", "V5", 3);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V9", "V5", 3);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V6", "V5", 8);
+//
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V6", "V9", 3);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V9", "V6", 3);
+//
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V7", "V10", 1);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V10", "V7", 1);
+//
+//
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V8", "V10", 3);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V9", "V10", 4);
+//
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V10", "V8", 3);
+//        myNetworkMaxFlowAlgorithmUpgrade.insert("V10", "V9", 4);
+//
+//        myNetworkMaxFlowAlgorithmUpgrade.getOptimumPathFlow("V0", "V10");
 
 
 
