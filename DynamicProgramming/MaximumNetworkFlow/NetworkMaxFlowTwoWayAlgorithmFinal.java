@@ -3,7 +3,7 @@ package DynamicProgramming.MaximumNetworkFlow;
 
 import java.util.*;
 
-public class NetworkMaxFlowTwoWayAlgorithm<E> {
+public class NetworkMaxFlowTwoWayAlgorithmFinal<E> {
 
 
 
@@ -171,8 +171,8 @@ public class NetworkMaxFlowTwoWayAlgorithm<E> {
 
                     // in case the the node run in the wrong way
                     // ==> the node is the leaf but it is not the destination or the path is run further than the destination
-                    if ((currentNode.level >= desNode.level && !currentNode.equals(desNode)) || ((currentNode.Edges.size() == 1 && !visitedNodeInPath.isEmpty()
-                            && visitedNodeInPath.contains(currentNode.Edges.get(0).destination)) || currentNode.Edges.isEmpty()) && !currentNode.equals(desNode)) {
+                    if ((currentNode.level >= desNode.level || ((currentNode.Edges.size() == 1 && !visitedNodeInPath.isEmpty()
+                            && visitedNodeInPath.contains(currentNode.Edges.get(0).destination)) || currentNode.Edges.isEmpty())) && !currentNode.equals(desNode)) {
 
                         Maintain.resetEdgeStacks();
                         Maintain.FlowMaintain();
@@ -339,7 +339,7 @@ public class NetworkMaxFlowTwoWayAlgorithm<E> {
 
 
     public static void main(String[] args) {
-        NetworkMaxFlowTwoWayAlgorithm<String> NetworkMaxFlowAlgorithm = new NetworkMaxFlowTwoWayAlgorithm<>();
+        NetworkMaxFlowTwoWayAlgorithmFinal<String> NetworkMaxFlowAlgorithm = new NetworkMaxFlowTwoWayAlgorithmFinal<>();
 
 
         NetworkMaxFlowAlgorithm.insert("V0", "V1", 7);
@@ -407,13 +407,15 @@ public class NetworkMaxFlowTwoWayAlgorithm<E> {
 
         NetworkMaxFlowAlgorithm.getOptimumPathFlow("V4", "V10");
         NetworkMaxFlowAlgorithm.getOptimumPathFlow("V0", "V10");
+        NetworkMaxFlowAlgorithm.getOptimumPathFlow("V10", "V0");
 
 
 
 
 
 
-        NetworkMaxFlowTwoWayAlgorithm<String> MaxFlowAlgorithmUpgrade = new NetworkMaxFlowTwoWayAlgorithm<>();
+
+        NetworkMaxFlowTwoWayAlgorithmFinal<String> MaxFlowAlgorithmUpgrade = new NetworkMaxFlowTwoWayAlgorithmFinal<>();
         float start1 = System.currentTimeMillis();
         MaxFlowAlgorithmUpgrade.insert("V0", "V1", 5);
         MaxFlowAlgorithmUpgrade.insert("V0", "V2", 10);
@@ -476,6 +478,8 @@ public class NetworkMaxFlowTwoWayAlgorithm<E> {
 
         float start2 = System.currentTimeMillis();
         MaxFlowAlgorithmUpgrade.getOptimumPathFlow("V10", "V0");
+        MaxFlowAlgorithmUpgrade.getOptimumPathFlow("V0", "V10");
+
         float end2 = System.currentTimeMillis();
         System.out.println("time of the optimum path flow\t" + ((end2 - start2)/1000));
 

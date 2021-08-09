@@ -1,11 +1,9 @@
-This is the project of self-learning datastructures and algorithms
-
-this link is the list of datastructure and algorithms to be checked out.
-https://github.com/TheAlgorithms/Java
-
-+ write code and comment clearly.
+- This is my project of self-learning datastructures and algorithms
+- this link is the list of datastructures and algorithms to be checked out to get the skeleton of this project https://github.com/TheAlgorithms/Java,
+  however, my codes and techniques are completely different with the codes and techniques in this link. 
+  
++ I wrote my code and commented clearly, make it concisely and easy to review.
 + based of the list but not copy code.
-+ write doc to explain each of those.
-+ write code concisely and easy to review
++ I also wrote docs or comments to explain each of those in the code file.
 
 
