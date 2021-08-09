@@ -21,7 +21,7 @@ public class GraphTraversals<E> {
      */
     public void DFS (E initialName){
         // by organizing graph nodes in to a map ==> that will access to the node faster
-        GNode<E> initialNode = GNodes.get(initialName), toVisitItem;
+        GNode<E> StartNode = GNodes.get(initialName), toVisitItem;
 
         // create a stack that contain the destination of the current node.
         Stack<GNode<E>> toVisit = new Stack<>();
@@ -32,17 +32,17 @@ public class GraphTraversals<E> {
         String visitedItems = "";
 
 
-        if (initialNode != null){ // if that initial node is in the graph
+        if (StartNode != null){ // if that initial node is in the graph
             visited.add(initialName); // add that initial node item to the list
-            toVisit.push(initialNode); // push it to the toVisit stack.
+            toVisit.push(StartNode); // push it to the toVisit stack.
 
             while (!toVisit.isEmpty()){ // visit to the nodes in the toVisit stack
-                initialNode = toVisit.pop(); // pop the last element of the stack
-                visited.add( initialNode.item); // at that element to visited
+                StartNode = toVisit.pop(); // pop the last element of the stack
+                visited.add( StartNode.item); // at that element to visited
 
-                for (int i  = 0; i < initialNode.Edges.size(); i ++){
+                for (int i  = 0; i < StartNode.Edges.size(); i ++){
                     // find all the destinations of the current initial node and push to stack.
-                    toVisitItem = initialNode.Edges.get(i).destination;
+                    toVisitItem = StartNode.Edges.get(i).destination;
                     if (!visited.contains(toVisitItem.item)) {
                         toVisit.push(toVisitItem);
                     }
@@ -66,21 +66,21 @@ public class GraphTraversals<E> {
     - at to the end but one by one chek to the start.
      */
     public void BFS (E initialName){
-        GNode<E> initialNode = GNodes.get(initialName), toVisitItem;
+        GNode<E> StartNode = GNodes.get(initialName), toVisitItem;
         Queue<GNode<E>> toVisit = new LinkedList<>();
         Set<E> visited = new LinkedHashSet<>();
         String visitedItems = "";
 
 
-        if (initialNode != null){
-            toVisit.add(initialNode);
+        if (StartNode != null){
+            toVisit.add(StartNode);
 
             while (!toVisit.isEmpty()){
-                initialNode = toVisit.remove();
-                visited.add(initialNode.item);
+                StartNode = toVisit.remove();
+                visited.add(StartNode.item);
 
-                for (int i  = 0; i < initialNode.Edges.size(); i ++){
-                    toVisitItem = initialNode.Edges.get(i).destination;
+                for (int i  = 0; i < StartNode.Edges.size(); i ++){
+                    toVisitItem = StartNode.Edges.get(i).destination;
                     if (!visited.contains(toVisitItem.item)) {
                         toVisit.add(toVisitItem);
                     }
@@ -103,23 +103,23 @@ public class GraphTraversals<E> {
 
     public void insert(E initialName, E destinationName){
 
-        GNode<E> destination, initialNode;
+        GNode<E> destination, StartNode;
         destination = this.GNodes.get(destinationName);
-        initialNode = this.GNodes.get(initialName);
+        StartNode = this.GNodes.get(initialName);
 
         if (destination == null) {
             destination = new GNode<>(destinationName);
             this.GNodes.put(destinationName, destination);
         }
 
-        if (initialNode == null){
+        if (StartNode == null){
 
             GNode<E> newGNode = new GNode<>(initialName);
             this.GNodes.put(initialName, newGNode);
             newGNode.Edges.add(new Edge<>(destination, 0));
 
         }else {
-            initialNode.Edges.add(new Edge<>(destination, 0));
+            StartNode.Edges.add(new Edge<>(destination, 0));
         }
     }
 

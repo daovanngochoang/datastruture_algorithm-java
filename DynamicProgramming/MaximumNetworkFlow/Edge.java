@@ -18,4 +18,9 @@ public class Edge<E> implements Comparable<E>{
         return 0;
     }
 
+    @Override
+    public String toString() {
+        return Capability - weight + " is remain Cap";
+
+    }
 }
