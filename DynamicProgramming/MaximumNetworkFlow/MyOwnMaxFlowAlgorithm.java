@@ -19,8 +19,6 @@ public class MyOwnMaxFlowAlgorithm<E> {
 
 
 
-
-
     public void insert(E StartName, E destinationName, int distance) {
 
         Node<E> destination, StartNode;
@@ -48,8 +46,8 @@ public class MyOwnMaxFlowAlgorithm<E> {
 
 
 
-
     private void resetEdges (){
+
         for (Node<E> node: GraphNodes.values()){
             for (Edge<E> edge : node.Edges){
                 edge.weight = 0;
@@ -60,9 +58,8 @@ public class MyOwnMaxFlowAlgorithm<E> {
 
 
 
-
-    private void resetNode () {
-        for (Node<E> node : GraphNodes.values()) {
+    private void resetNode (){
+        for (Node<E> node: GraphNodes.values()){
             node.level = -1;
         }
     }
@@ -71,31 +68,12 @@ public class MyOwnMaxFlowAlgorithm<E> {
 
 
 
-    private boolean checkLeaf (E StartName) {
-        boolean higherLevel = false;
-        boolean smallerLevel = false;
-        Node<E> StartNode = GraphNodes.get(StartName);
-        for (Edge<E> edge : StartNode.Edges){
-            if (edge.destination.level > StartNode.level){
-                higherLevel = true;
-            }else {
-                smallerLevel = true;
-            }
-        }
-        return !higherLevel || !smallerLevel;
-
-    }
-
-
-
     private void constructLevel(E StartName, E DestinationName) {
 
         if (!StartName.equals(DestinationName)) {
 
-            Node<E> StartNode = GraphNodes.get(StartName), currentDestinationNode, desNode = GraphNodes.get(DestinationName);
+            Node<E> StartNode = GraphNodes.get(StartName), currentDestinationNode, desNode = GraphNodes.get(DestinationName), currentNode;
             Queue<Node<E>> toVisit = new LinkedList<>();
-            int len;
-            Edge<E> edge;
 
             if (StartNode != null) {
                 resetNode();
@@ -103,17 +81,15 @@ public class MyOwnMaxFlowAlgorithm<E> {
                 StartNode.level = 0;
 
                 while (!toVisit.isEmpty()) { // if the toVisit queue is not empty
-                    StartNode = toVisit.remove(); // get the start node
-                    len = StartNode.Edges.size();
+                    currentNode = toVisit.remove(); // get the start node
 
+                    for (Edge<E> edge : currentNode.Edges) { // ==> check all its edges and update the level
 
-                    for (int i = 0; i < len; i++) { // ==> check all its edges and update the level
-
-                        edge = StartNode.Edges.get(i);
                         currentDestinationNode = edge.destination;
-                        if (!StartNode.item.equals(DestinationName)) {
-                            if (currentDestinationNode.level == -1 || StartNode.level <= currentDestinationNode.level|| currentDestinationNode.equals(desNode)) {
-                                currentDestinationNode.level = Math.max(currentDestinationNode.level, StartNode.level + 1);
+
+                        if (!currentNode.item.equals(DestinationName)) {
+                            if (currentDestinationNode.level == -1 || currentNode.level <= currentDestinationNode.level|| currentDestinationNode.equals(desNode)) {
+                                currentDestinationNode.level = Math.max(currentDestinationNode.level, currentNode.level + 1);
                                 toVisit.add(currentDestinationNode); // if the destination not in the Queue ==> add to the queue.
                             }
                         }
@@ -128,39 +104,10 @@ public class MyOwnMaxFlowAlgorithm<E> {
 
 
 
-    private int checkCapability (Stack<Edge<E>> stack){
-        int remainCapability = Integer.MAX_VALUE;
-        for (Edge<E> edge : stack){
-            if (edge.Capability - edge.weight < remainCapability){
-                remainCapability = edge.Capability - edge.weight;
-            }
-        }
-        return remainCapability;
-    }
-
-
-
-    /*
-        - put nodes to the stack of node, and push it's following edge to the stack of the toVisitEdges
-        ==> the node and the stack has the same location in these 2 stack ==>  we pop 1 node => pop 1 stack
-        and 2 of those are has a comparable.
-
-        - each time, we pop a node out of the stack, we check the edges collection of that node if it is satisfied
-        with the condition (which is explained in the code comment below).
-
-        - whenever we pop a node out of the stack ==> pop an edge ==> that edge is the following edge of the node
-        and point at that node.
-
-        - each time we pop a node ==> pop it's following edge, then check and update the weight, based on the remain
-        capability, by checking the bottleneck value in the path and update to all edge in that path.
-
-        -
-     */
-
     public List<List<String>> getOptimumPathFlow(E StartName, E DestinationName) {
 
         if (!StartName.equals(DestinationName)) {
-            resetEdges();
+            resetEdges(); // reset the edge
             this.constructLevel(StartName, DestinationName); // construct the level to make sure the level increase from start to destination.
 
             Stack<Node<E>> toVisitNode = new Stack<>(); // stack to contain the Node
@@ -174,9 +121,11 @@ public class MyOwnMaxFlowAlgorithm<E> {
             int remainCapacity;
             int total = 0;
 
+
             List<List<String>> PathCollection = new LinkedList<>();
 
-            class local {
+            // local class to contain function to maintain code so we dont need to write them 3 - 4 times.
+            class resetMaintain {
                 void resetEdgeStacks() { // reset edge stacks
                     if (!toVisitNode.isEmpty()) {
                         popEdges(toVisitEdges, toVisitNode.peek().item);
@@ -199,18 +148,20 @@ public class MyOwnMaxFlowAlgorithm<E> {
                         popNodeVisited(visitedNodeInPath, edgesInPath.peek().destination);
                     }
                 }
-
-
-                void flowMaintain(){
+                void FlowMaintain(){
                     if (edgesInPath.isEmpty()) {
                         newFlowCap[0] = Integer.MAX_VALUE;
                     }else {
                         newFlowCap[0] = checkCapability(edgesInPath);
+                        if (newFlowCap[0] == 0){
+                            this.resetEdgeStacks();
+                            newFlowCap[0] = Integer.MAX_VALUE;
+                        }
                     }
                 }
             }
 
-            local Maintain = new local();
+            resetMaintain Maintain = new resetMaintain();
 
 
 
@@ -219,15 +170,17 @@ public class MyOwnMaxFlowAlgorithm<E> {
 
 
                 while (!toVisitNode.isEmpty()) {
-
+                    int count = 0;
                     currentNode = toVisitNode.pop();// get the current node.
+
 
                     // in case the the node run in the wrong way
                     // ==> the node is the leaf but it is not the destination or the path is run further than the destination
-                    if ((currentNode.level >= desNode.level && !currentNode.equals(desNode)) || ((currentNode.Edges.size() == 1 && !visitedNodeInPath.isEmpty()
-                        && visitedNodeInPath.contains(currentNode.Edges.get(0).destination)) || currentNode.Edges.isEmpty()) && !currentNode.equals(desNode)) {
+                    if ((currentNode.level >= desNode.level || ((currentNode.Edges.size() == 1 && !visitedNodeInPath.isEmpty()
+                            && visitedNodeInPath.contains(currentNode.Edges.get(0).destination)) || currentNode.Edges.isEmpty())) && !currentNode.equals(desNode)) {
+
                         Maintain.resetEdgeStacks();
-                        Maintain.flowMaintain();
+                        Maintain.FlowMaintain();
 
                     } else {
 
@@ -236,7 +189,6 @@ public class MyOwnMaxFlowAlgorithm<E> {
 
                             // the rest capacity that can contain the flow == capacity - the current flow in the link.
                             remainCapacity = followEdge.Capability - followEdge.weight;
-//                            System.out.println(followEdge.destination + "  :" + remainCapacity);
 
                             // find the bottleneck in the graph
                             newFlowCap[0] = Math.min(newFlowCap[0], remainCapacity);
@@ -254,6 +206,7 @@ public class MyOwnMaxFlowAlgorithm<E> {
                                     // update Edge stacks after pop Node.
                                     Maintain.resetEdgeStacks();
 
+
                                 } else {
                                     // if there is no full edge ==> just update the edgesInPath with toVisitEdges
                                     this.popEdges(edgesInPath, toVisitEdges.peek().previous.item);
@@ -262,11 +215,11 @@ public class MyOwnMaxFlowAlgorithm<E> {
                                 // also update the visited Node because when ever meet destination, we will run the other
                                 // branches
                                 Maintain.resetVisited();
-                                Maintain.flowMaintain();
-
+                                Maintain.FlowMaintain();
                             }
                         }
 
+                        boolean check = false;
 
                         if (!currentNode.equals(desNode)) {
 
@@ -274,17 +227,30 @@ public class MyOwnMaxFlowAlgorithm<E> {
                             for (Edge<E> edge : currentNode.Edges) {
 
                                 // get the edge that has the destination satisfied with these condition.
-                                if ((currentNode.level < edge.destination.level) && edge.Capability - edge.weight != 0 && !visitedNodeInPath.contains(edge.destination)) {
-
+                                if (currentNode.level < edge.destination.level && edge.Capability - edge.weight != 0 && !visitedNodeInPath.contains(edge.destination)) {
+                                    if (currentNode.equals(StartNode) && edge.destination.equals(desNode)){
+                                        edgesInPath.push(edge);
+                                        PathCollection.add(getPathCollection(StartName, edgesInPath, edge.Capability - edge.weight));
+                                        edgesInPath.pop();
+                                    }else {
                                         toVisitNode.push(edge.destination);
                                         toVisitEdges.push(edge);
+                                        count++;
+                                    }
 
                                 } else if (edge.Capability - edge.weight == 0) {
                                     // if we found an edge that has full capability
                                     Maintain.resetEdgeStacks();
                                     Maintain.resetVisited();
+                                    Maintain.FlowMaintain();
+                                    check = true;
                                 }
                             }
+                            if (count == 0 && !check){
+                                Maintain.resetEdgeStacks();
+                                Maintain.FlowMaintain();
+                            }
+
                             visitedNodeInPath.push(currentNode);
                         }
                     }
@@ -297,8 +263,15 @@ public class MyOwnMaxFlowAlgorithm<E> {
         return null;
     }
 
-
-
+    private int checkCapability (Stack<Edge<E>> stack){
+        int remainCapability = Integer.MAX_VALUE;
+        for (Edge<E> edge : stack){
+            if (edge.Capability - edge.weight < remainCapability){
+                remainCapability = edge.Capability - edge.weight;
+            }
+        }
+        return remainCapability;
+    }
 
 
     private void popEdges(Stack<Edge<E>> EdgeCollection, E currentPrevious) {
@@ -317,13 +290,15 @@ public class MyOwnMaxFlowAlgorithm<E> {
 
 
 
+
     private void popNode(Stack<Node<E>> stackNode, Node<E> condition, Node<E> desNode) {
         // pop out the item until the condition wrong
         // pop out the item until the condition wrong
-        while (!stackNode.isEmpty() && (stackNode.peek().level > condition.level) && !stackNode.peek().equals(desNode)) {
+        while (!stackNode.isEmpty() && (stackNode.peek().level > condition.level)) {
             stackNode.pop();
         }
     }
+
 
 
 
@@ -342,6 +317,8 @@ public class MyOwnMaxFlowAlgorithm<E> {
 
 
 
+
+
     private List<String> getPathCollection(E StartName, Stack<Edge<E>> edges, int flow) {
         StringBuilder Path = new StringBuilder("" + StartName + "--->\t");
         List<String> result = new LinkedList<>();
@@ -356,6 +333,8 @@ public class MyOwnMaxFlowAlgorithm<E> {
         System.out.println(Path.append(flow));
         return result;
     }
+
+
 
 
 
@@ -379,7 +358,7 @@ public class MyOwnMaxFlowAlgorithm<E> {
         NetworkMaxFlowAlgorithm.insert("V0", "V1", 7);
         NetworkMaxFlowAlgorithm.insert("V0", "V2", 2);
         NetworkMaxFlowAlgorithm.insert("V0", "V3", 1);
-        NetworkMaxFlowAlgorithm.insert("V0", "V20", 0);
+        NetworkMaxFlowAlgorithm.insert("V0", "V20", 10);
         NetworkMaxFlowAlgorithm.insert("V0", "V21", 9);
 
 
@@ -439,11 +418,18 @@ public class MyOwnMaxFlowAlgorithm<E> {
         NetworkMaxFlowAlgorithm.insert("V10", "V8", 3);
         NetworkMaxFlowAlgorithm.insert("V10", "V9", 4);
         NetworkMaxFlowAlgorithm.constructLevel("V1", "V9");
-//        for (Node<String> node : NetworkMaxFlowAlgorithm.GraphNodes.values()){
-//            System.out.println(node.item+ "---" + node.level);
-//        }
+
 
         NetworkMaxFlowAlgorithm.getOptimumPathFlow("V4", "V10");
+        NetworkMaxFlowAlgorithm.getOptimumPathFlow("V3", "V8");
+        NetworkMaxFlowAlgorithm.getOptimumPathFlow("V0", "V10");
+        NetworkMaxFlowAlgorithm.getOptimumPathFlow("V8", "V10");
+        NetworkMaxFlowAlgorithm.getOptimumPathFlow("V9", "V10");
+        NetworkMaxFlowAlgorithm.getOptimumPathFlow("V5", "V10");
+        NetworkMaxFlowAlgorithm.getOptimumPathFlow("V4", "V2");
+
+        NetworkMaxFlowAlgorithm.getOptimumPathFlow("V4", "V1");
+
 
 
 //
@@ -509,6 +495,8 @@ public class MyOwnMaxFlowAlgorithm<E> {
 
         MaxFlowAlgorithmUpgrade.getOptimumPathFlow("V0", "V10");
         MaxFlowAlgorithmUpgrade.getOptimumPathFlow("V10", "V0");
+        MaxFlowAlgorithmUpgrade.getOptimumPathFlow("V5", "V6");
+
 
 
 
