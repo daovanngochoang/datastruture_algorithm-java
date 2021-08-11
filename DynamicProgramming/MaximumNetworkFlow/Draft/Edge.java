@@ -1,4 +1,4 @@
-package DynamicProgramming.MaximumNetworkFlow;
+package DynamicProgramming.MaximumNetworkFlow.Draft;
 
 
 public class Edge<E> implements Comparable<E>{

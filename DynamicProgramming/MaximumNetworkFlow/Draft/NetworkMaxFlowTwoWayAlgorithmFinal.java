@@ -1,9 +1,9 @@
-package DynamicProgramming.MaximumNetworkFlow;
-
+package DynamicProgramming.MaximumNetworkFlow.Draft;
 
 import java.util.*;
 
-public class MyOwnMaxFlowAlgorithm<E> {
+public class NetworkMaxFlowTwoWayAlgorithmFinal<E> {
+
 
 
     HashMap<E, Node<E>> GraphNodes = new HashMap<>();
@@ -102,8 +102,6 @@ public class MyOwnMaxFlowAlgorithm<E> {
 
 
 
-
-
     public List<List<String>> getOptimumPathFlow(E StartName, E DestinationName) {
 
         if (!StartName.equals(DestinationName)) {
@@ -120,7 +118,6 @@ public class MyOwnMaxFlowAlgorithm<E> {
             final int[] newFlowCap = {Integer.MAX_VALUE};
             int remainCapacity;
             int total = 0;
-
 
             List<List<String>> PathCollection = new LinkedList<>();
 
@@ -171,88 +168,76 @@ public class MyOwnMaxFlowAlgorithm<E> {
 
                 while (!toVisitNode.isEmpty()) {
                     int count = 0;
+
                     currentNode = toVisitNode.pop();// get the current node.
 
 
                     // in case the the node run in the wrong way
                     // ==> the node is the leaf but it is not the destination or the path is run further than the destination
-                    if ((currentNode.level >= desNode.level || ((currentNode.Edges.size() == 1 && !visitedNodeInPath.isEmpty()
-                            && visitedNodeInPath.contains(currentNode.Edges.get(0).destination)) || currentNode.Edges.isEmpty())) && !currentNode.equals(desNode)) {
-
-                        Maintain.resetEdgeStacks();
-                        Maintain.FlowMaintain();
-
-                    } else {
-
-                        if (!toVisitEdges.isEmpty()) {
-                            followEdge = toVisitEdges.pop(); // get the edge that point to the current Node.
-
-                            // the rest capacity that can contain the flow == capacity - the current flow in the link.
-                            remainCapacity = followEdge.Capability - followEdge.weight;
-
-                            // find the bottleneck in the graph
-                            newFlowCap[0] = Math.min(newFlowCap[0], remainCapacity);
-                            edgesInPath.push(followEdge);
-
-                            if (currentNode.item.equals(DestinationName)) {
-                                // update and check full edge
-                                fullEdge = this.UpdateFlowAndCheckCap(edgesInPath, newFlowCap[0]);
-                                PathCollection.add(getPathCollection(StartName, edgesInPath, newFlowCap[0]));
-                                total += newFlowCap[0];
-
-                                if (fullEdge != null) {
-                                    // pop Node until meet the same level of the fullEdge's destination or it meet the destination
-                                    this.popNode(toVisitNode, fullEdge.destination, desNode);
-                                    // update Edge stacks after pop Node.
-                                    Maintain.resetEdgeStacks();
 
 
-                                } else {
-                                    // if there is no full edge ==> just update the edgesInPath with toVisitEdges
-                                    this.popEdges(edgesInPath, toVisitEdges.peek().previous.item);
+                    if (!toVisitEdges.isEmpty()) {
+                        followEdge = toVisitEdges.pop(); // get the edge that point to the current Node.
 
-                                }
-                                // also update the visited Node because when ever meet destination, we will run the other
-                                // branches
-                                Maintain.resetVisited();
-                                Maintain.FlowMaintain();
-                            }
-                        }
+                        // the rest capacity that can contain the flow == capacity - the current flow in the link.
+                        remainCapacity = followEdge.Capability - followEdge.weight;
 
-                        boolean check = false;
+                        // find the bottleneck in the graph
+                        newFlowCap[0] = Math.min(newFlowCap[0], remainCapacity);
+                        edgesInPath.push(followEdge);
 
-                        if (!currentNode.equals(desNode)) {
+                        if (currentNode.item.equals(DestinationName)) {
+                            // update and check full edge
+                            fullEdge = this.UpdateFlowAndCheckCap(edgesInPath, newFlowCap[0]);
+                            PathCollection.add(getPathCollection(StartName, edgesInPath, newFlowCap[0]));
+                            total += newFlowCap[0];
 
-                            // add item of the current node to stack
-                            for (Edge<E> edge : currentNode.Edges) {
-
-                                // get the edge that has the destination satisfied with these condition.
-                                if (currentNode.level < edge.destination.level && edge.Capability - edge.weight != 0 && !visitedNodeInPath.contains(edge.destination)) {
-                                    if (currentNode.equals(StartNode) && edge.destination.equals(desNode)){
-                                        edgesInPath.push(edge);
-                                        PathCollection.add(getPathCollection(StartName, edgesInPath, edge.Capability - edge.weight));
-                                        edgesInPath.pop();
-                                    }else {
-                                        toVisitNode.push(edge.destination);
-                                        toVisitEdges.push(edge);
-                                        count++;
-                                    }
-
-                                } else if (edge.Capability - edge.weight == 0) {
-                                    // if we found an edge that has full capability
-                                    Maintain.resetEdgeStacks();
-                                    Maintain.resetVisited();
-                                    Maintain.FlowMaintain();
-                                    check = true;
-                                }
-                            }
-                            if (count == 0 && !check){
+                            if (fullEdge != null) {
+                                // pop Node until meet the same level of the fullEdge's destination or it meet the destination
+                                this.popNode(toVisitNode, fullEdge.destination, desNode);
+                                // update Edge stacks after pop Node.
                                 Maintain.resetEdgeStacks();
-                                Maintain.FlowMaintain();
-                            }
 
-                            visitedNodeInPath.push(currentNode);
+
+                            } else {
+                                // if there is no full edge ==> just update the edgesInPath with toVisitEdges
+                                this.popEdges(edgesInPath, toVisitEdges.peek().previous.item);
+
+                            }
+                            // also update the visited Node because when ever meet destination, we will run the other
+                            // branches
+                            Maintain.resetVisited();
+                            Maintain.FlowMaintain();
                         }
+                    }
+
+                    boolean check = false;
+                    if (!currentNode.equals(desNode)) {
+
+                        // add item of the current node to stack
+                        for (Edge<E> edge : currentNode.Edges) {
+
+                            // get the edge that has the destination satisfied with these condition.
+                            if (currentNode.level <= edge.destination.level && edge.Capability - edge.weight != 0 && !visitedNodeInPath.contains(edge.destination)) {
+
+                                toVisitNode.push(edge.destination);
+                                toVisitEdges.push(edge);
+                                count ++;
+
+                            } else if (edge.Capability - edge.weight == 0) {
+                                // if we found an edge that has full capability
+                                Maintain.resetEdgeStacks();
+                                Maintain.resetVisited();
+                                check = true;
+                            }
+                        }
+
+                        if (count == 0 && !check){
+                            Maintain.resetEdgeStacks();
+                            Maintain.FlowMaintain();
+                        }
+
+                        visitedNodeInPath.push(currentNode);
                     }
                 }
                 System.out.printf("\n Total Flow : %d \n\n", total);
@@ -294,7 +279,7 @@ public class MyOwnMaxFlowAlgorithm<E> {
     private void popNode(Stack<Node<E>> stackNode, Node<E> condition, Node<E> desNode) {
         // pop out the item until the condition wrong
         // pop out the item until the condition wrong
-        while (!stackNode.isEmpty() && (stackNode.peek().level > condition.level)) {
+        while (!stackNode.isEmpty() && (stackNode.peek().level > condition.level) && !stackNode.peek().equals(desNode)) {
             stackNode.pop();
         }
     }
@@ -351,91 +336,88 @@ public class MyOwnMaxFlowAlgorithm<E> {
         return fullEdge;
     }
 
+
+
+
+
+
     public static void main(String[] args) {
-        MyOwnMaxFlowAlgorithm<String> NetworkMaxFlowAlgorithm = new MyOwnMaxFlowAlgorithm<>();
+
+        NetworkMaxFlowTwoWayAlgorithmFinal<String> NetworkMaxFlowAlgorithm2 = new NetworkMaxFlowTwoWayAlgorithmFinal<>();
+
+
+        NetworkMaxFlowAlgorithm2.insert("S", "V1", 20);
+        NetworkMaxFlowAlgorithm2.insert("S", "V2", 15);
+
+        NetworkMaxFlowAlgorithm2.insert("V1", "V2", 18);
+        NetworkMaxFlowAlgorithm2.insert("V2", "V3", 10);
+        NetworkMaxFlowAlgorithm2.insert("V3", "T", 12);
+        NetworkMaxFlowAlgorithm2.insert("V1", "T", 8);
+        NetworkMaxFlowAlgorithm2.insert("V2", "T", 3);
+
+        NetworkMaxFlowAlgorithm2.getOptimumPathFlow("S", "T");
+
+
+
+
+
+
+
+
+
+
+
+        NetworkMaxFlowTwoWayAlgorithmFinal<String> NetworkMaxFlowAlgorithm = new NetworkMaxFlowTwoWayAlgorithmFinal<>();
 
 
         NetworkMaxFlowAlgorithm.insert("V0", "V1", 7);
         NetworkMaxFlowAlgorithm.insert("V0", "V2", 2);
         NetworkMaxFlowAlgorithm.insert("V0", "V3", 1);
-        NetworkMaxFlowAlgorithm.insert("V0", "V20", 10);
-        NetworkMaxFlowAlgorithm.insert("V0", "V21", 9);
 
 
-        NetworkMaxFlowAlgorithm.insert("V1", "V0", 7);
-        NetworkMaxFlowAlgorithm.insert("V2", "V0", 2);
-        NetworkMaxFlowAlgorithm.insert("V3", "V0", 1);
 
         NetworkMaxFlowAlgorithm.insert("V1", "V4", 2);
         NetworkMaxFlowAlgorithm.insert("V1", "V5", 4);
 
-        NetworkMaxFlowAlgorithm.insert("V4", "V1", 2);
-        NetworkMaxFlowAlgorithm.insert("V5", "V1", 4);
 
         NetworkMaxFlowAlgorithm.insert("V2", "V5", 5);
         NetworkMaxFlowAlgorithm.insert("V2", "V6", 6);
-//
-        NetworkMaxFlowAlgorithm.insert("V5", "V2", 5);
-        NetworkMaxFlowAlgorithm.insert("V6", "V2", 6);
 
         NetworkMaxFlowAlgorithm.insert("V3", "V4", 4);
         NetworkMaxFlowAlgorithm.insert("V3", "V8", 8);
         NetworkMaxFlowAlgorithm.insert("V3", "V11", 8);
-//
-        NetworkMaxFlowAlgorithm.insert("V4", "V3", 4);
-        NetworkMaxFlowAlgorithm.insert("V8", "V3", 8);
-        NetworkMaxFlowAlgorithm.insert("V11", "V3", 8);
 
 
-        NetworkMaxFlowAlgorithm.insert("V11", "V12", 8);
-        NetworkMaxFlowAlgorithm.insert("V12", "V13", 8);
-        NetworkMaxFlowAlgorithm.insert("V13", "V14", 8);
+
 
         NetworkMaxFlowAlgorithm.insert("V4", "V7", 7);
         NetworkMaxFlowAlgorithm.insert("V4", "V8", 6);
-
-        NetworkMaxFlowAlgorithm.insert("V7", "V4", 7);
-        NetworkMaxFlowAlgorithm.insert("V8", "V4", 1);
 
         NetworkMaxFlowAlgorithm.insert("V5", "V7", 3);
         NetworkMaxFlowAlgorithm.insert("V5", "V9", 3);
         NetworkMaxFlowAlgorithm.insert("V5", "V6", 8);
 
-        NetworkMaxFlowAlgorithm.insert("V7", "V5", 3);
-        NetworkMaxFlowAlgorithm.insert("V9", "V5", 3);
-        NetworkMaxFlowAlgorithm.insert("V6", "V5", 8);
-
         NetworkMaxFlowAlgorithm.insert("V6", "V9", 3);
         NetworkMaxFlowAlgorithm.insert("V9", "V6", 3);
-//
+
         NetworkMaxFlowAlgorithm.insert("V7", "V10", 1);
-        NetworkMaxFlowAlgorithm.insert("V10", "V7", 1);
 
 
         NetworkMaxFlowAlgorithm.insert("V8", "V10", 6);
         NetworkMaxFlowAlgorithm.insert("V9", "V10", 4);
-//
-        NetworkMaxFlowAlgorithm.insert("V10", "V8", 3);
-        NetworkMaxFlowAlgorithm.insert("V10", "V9", 4);
-        NetworkMaxFlowAlgorithm.constructLevel("V1", "V9");
 
 
-        NetworkMaxFlowAlgorithm.getOptimumPathFlow("V4", "V10");
-        NetworkMaxFlowAlgorithm.getOptimumPathFlow("V3", "V8");
-        NetworkMaxFlowAlgorithm.getOptimumPathFlow("V0", "V10");
-        NetworkMaxFlowAlgorithm.getOptimumPathFlow("V8", "V10");
-        NetworkMaxFlowAlgorithm.getOptimumPathFlow("V9", "V10");
         NetworkMaxFlowAlgorithm.getOptimumPathFlow("V5", "V10");
-        NetworkMaxFlowAlgorithm.getOptimumPathFlow("V4", "V2");
-
-        NetworkMaxFlowAlgorithm.getOptimumPathFlow("V4", "V1");
-
+        NetworkMaxFlowAlgorithm.getOptimumPathFlow("V0", "V10");
+        NetworkMaxFlowAlgorithm.getOptimumPathFlow("V10", "V0");
 
 
-//
-//
 
-        MyOwnMaxFlowAlgorithm<String> MaxFlowAlgorithmUpgrade = new MyOwnMaxFlowAlgorithm<>();
+
+
+
+
+        NetworkMaxFlowTwoWayAlgorithmFinal<String> MaxFlowAlgorithmUpgrade = new NetworkMaxFlowTwoWayAlgorithmFinal<>();
         float start1 = System.currentTimeMillis();
         MaxFlowAlgorithmUpgrade.insert("V0", "V1", 5);
         MaxFlowAlgorithmUpgrade.insert("V0", "V2", 10);
@@ -452,8 +434,6 @@ public class MyOwnMaxFlowAlgorithm<E> {
         MaxFlowAlgorithmUpgrade.insert("V2", "V1", 15);
         MaxFlowAlgorithmUpgrade.insert("V2", "V5", 20);
 
-        MaxFlowAlgorithmUpgrade.insert("V1", "V2", 15);
-        MaxFlowAlgorithmUpgrade.insert("V5", "V2", 20);
 
         MaxFlowAlgorithmUpgrade.insert("V3", "V6", 10);
 
@@ -492,12 +472,16 @@ public class MyOwnMaxFlowAlgorithm<E> {
         MaxFlowAlgorithmUpgrade.insert("V9", "V10", 10);
         MaxFlowAlgorithmUpgrade.insert("V10", "V9", 10);
 
+        float end1 = System.currentTimeMillis();
+        System.out.println("insert time\t" +((end1 - start1)/1000));
 
-        MaxFlowAlgorithmUpgrade.getOptimumPathFlow("V0", "V10");
+
+        float start2 = System.currentTimeMillis();
         MaxFlowAlgorithmUpgrade.getOptimumPathFlow("V10", "V0");
-        MaxFlowAlgorithmUpgrade.getOptimumPathFlow("V5", "V6");
+        MaxFlowAlgorithmUpgrade.getOptimumPathFlow("V0", "V10");
 
-
+        float end2 = System.currentTimeMillis();
+        System.out.println("time of the optimum path flow\t" + ((end2 - start2)/1000));
 
 
 

@@ -1,4 +1,4 @@
-package DynamicProgramming.MaximumNetworkFlow;
+package DynamicProgramming.MaximumNetworkFlow.Draft;
 
 import java.util.LinkedList;
 
@@ -6,7 +6,7 @@ import java.util.LinkedList;
 public class Node<E> implements Comparable<Node<E>> {
     E item;
     LinkedList<Edge<E>> Edges;
-    int level, coordinate;
+    int level;
 
     public Node(E item) {
         this.item = item;
