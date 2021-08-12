@@ -1,4 +1,4 @@
-package DynamicProgramming.MaximumNetworkFlow.MainSource;
+package DynamicProgramming.MaximumNetworkFlow.OneWayOnlyMethod;
 
 
 

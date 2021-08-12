@@ -1,12 +1,10 @@
-package DynamicProgramming.MaximumNetworkFlow.Draft;
-
-
+package DynamicProgramming.MaximumNetworkFlow.NetworkFlowUpdateTwoWay;
 
 
 import java.util.LinkedList;
 
-public class sort<E>{
-    public void QuickSortTraditionalMethodNonRecursion(LinkedList<Edge<E>> array){
+public class sort<E> {
+    public void QuickSortTraditionalMethodNonRecursion(LinkedList<Edge<E>> array) {
 
         /*
         -len is the index of the ending item, start is the index of the start item
@@ -19,7 +17,7 @@ public class sort<E>{
             that mean the stack is pop out the value in that lTop index and it decrease, the item is no longer be useful.
         */
 
-        int len = array.size(), start = 0, end = len-1, lTop = -1, hTop = -1, pivotIndex;
+        int len = array.size(), start = 0, end = len - 1, lTop = -1, hTop = -1, pivotIndex;
         if (len >= 2) {
             int[] lowStack = new int[len / 2], highStack = new int[len / 2];
 
@@ -45,22 +43,22 @@ public class sort<E>{
                     highStack[++hTop] = end; // add end
                 }
             }
-//            System.out.println(array);
         }
+
     }
 
-    public int partitionArray(LinkedList<Edge<E>> array, int lIndex , int hIndex){
+    public int partitionArray(LinkedList<Edge<E>> array, int lIndex, int hIndex) {
 
         Edge<E> pivot = array.get(hIndex);
         int rightCounter = hIndex;
         Edge<E> temp;
         int pivotPosition = hIndex;
 
-        for (int leftCounter = lIndex; leftCounter < hIndex; leftCounter++){ // run leftCounter to array
+        for (int leftCounter = lIndex; leftCounter < hIndex; leftCounter++) { // run leftCounter to array
 
-            if (array.get(leftCounter).Capability > pivot.Capability ) { // if leftCounter found an item that > pivot ==> rightCounter run
-                while (leftCounter<rightCounter) { // rightCounter run but make sure it not pass the leftCounter
-                    if (array.get(rightCounter).Capability < pivot.Capability) { // if rightCounter found an item < pivot => swap them and break.
+            if (array.get(leftCounter).destination.parentRate > pivot.destination.parentRate) { // if leftCounter found an item that > pivot ==> rightCounter run
+                while (leftCounter < rightCounter) { // rightCounter run but make sure it not pass the leftCounter
+                    if (array.get(rightCounter).destination.parentRate < pivot.destination.parentRate) { // if rightCounter found an item < pivot => swap them and break.
                         temp = array.get(leftCounter);
                         array.set(leftCounter, array.get(rightCounter));
                         array.set(rightCounter, temp);
@@ -68,7 +66,7 @@ public class sort<E>{
                     }
                     rightCounter--;
                 }
-                if (!(leftCounter < rightCounter)){ // if leftCounter pass the rightCounter => swap the leftCounter with pivot.
+                if (!(leftCounter < rightCounter)) { // if leftCounter pass the rightCounter => swap the leftCounter with pivot.
                     array.set(pivotPosition, array.get(leftCounter));
                     array.set(leftCounter, pivot);
                     pivotPosition = leftCounter;

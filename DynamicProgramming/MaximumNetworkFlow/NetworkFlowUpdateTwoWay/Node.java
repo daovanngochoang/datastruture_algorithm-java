@@ -1,4 +1,4 @@
-package DynamicProgramming.MaximumNetworkFlow.MainSource;
+package DynamicProgramming.MaximumNetworkFlow.NetworkFlowUpdateTwoWay;
 
 import java.util.LinkedList;
 
@@ -6,13 +6,13 @@ import java.util.LinkedList;
 public class Node<E> implements Comparable<Node<E>> {
     E item;
     LinkedList<Edge<E>> Edges;
-    int level;
+    int parentRate;
     boolean deadEnd = false;
 
     public Node(E item) {
         this.item = item;
         this.Edges = new LinkedList<>();
-        this.level = -1;
+        this.parentRate = 0;
     }
 
     protected boolean checkDeadEndStatus() {
@@ -40,8 +40,7 @@ public class Node<E> implements Comparable<Node<E>> {
 
     @Override
     public String toString() {
-        return
-                "item=" + item
+        return "" + item
                 ;
     }
 }

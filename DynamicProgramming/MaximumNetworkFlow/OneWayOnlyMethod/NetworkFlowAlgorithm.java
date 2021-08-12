@@ -1,4 +1,4 @@
-package DynamicProgramming.MaximumNetworkFlow.MainSource;
+package DynamicProgramming.MaximumNetworkFlow.OneWayOnlyMethod;
 
 
 import java.util.*;
@@ -183,15 +183,7 @@ public class NetworkFlowAlgorithm<E> {
         }
     }
 
-    private int checkCapability(Stack<Edge<E>> stack) {
-        int remainCapability = Integer.MAX_VALUE;
-        for (Edge<E> edge : stack) {
-            if (edge.getCapability() < remainCapability) {
-                remainCapability = edge.getCapability();
-            }
-        }
-        return remainCapability;
-    }
+
 
     public void MaxFlow(E StartName, E DestinationName) {
         Stack<Edge<E>> edgesInPath = new Stack<>();  // stack to contain the Edges that in the current working branch
@@ -209,12 +201,10 @@ public class NetworkFlowAlgorithm<E> {
         class LocalMaintain {
 
             void FlowMaintain() {
-                if (edgesInPath.isEmpty()) {
-                    newFlowCap[0] = Integer.MAX_VALUE;
-                } else {
-                    newFlowCap[0] = checkCapability(edgesInPath);
-                    if (newFlowCap[0] == 0) {
-                        newFlowCap[0] = Integer.MAX_VALUE;
+                newFlowCap[0] = Integer.MAX_VALUE;
+                for (Edge<E> edge : edgesInPath) {
+                    if (edge.getCapability() < newFlowCap[0]) {
+                        newFlowCap[0] = edge.getCapability();
                     }
                 }
             }
@@ -276,28 +266,27 @@ public class NetworkFlowAlgorithm<E> {
                         }
                     }
                     maintain.FlowMaintain();
-                    continue;
-                }
-                for (Edge<E> eEdge : currentNode.Edges) {
-                    if (!currentNode.equals(desNode) && !currentNode.deadEnd && eEdge.getCapability() > 0 && !eEdge.destination.getDeadEndStatus()
-                            && !visitedNodeInPath.contains(eEdge.destination) && currentNode.level <= eEdge.destination.level) {
+                } else {
+                    for (Edge<E> eEdge : currentNode.Edges) {
+                        if (!currentNode.equals(desNode) && !currentNode.deadEnd && eEdge.getCapability() > 0 && !eEdge.destination.getDeadEndStatus()
+                                && !visitedNodeInPath.contains(eEdge.destination) && currentNode.level <= eEdge.destination.level) {
 
-                        newFlowCap[0] = Math.min(newFlowCap[0], eEdge.getCapability());
-                        visitedNodeInPath.push(eEdge.destination);
-                        edgesInPath.push(eEdge);
-                        count++;
-                        break;
+                            newFlowCap[0] = Math.min(newFlowCap[0], eEdge.getCapability());
+                            visitedNodeInPath.push(eEdge.destination);
+                            edgesInPath.push(eEdge);
+                            count++;
+                            break;
+                        }
+                    }
+                    if (count == 0) {
+                        currentNode.deadEnd = true;
+                        visitedNodeInPath.pop();
+                        if (visitedNodeInPath.size() >= 1) edgesInPath.pop();
+                        maintain.FlowMaintain();
 
                     }
-                }
-                if (count == 0) {
-                    currentNode.deadEnd = true;
-                    visitedNodeInPath.pop();
-                    if (visitedNodeInPath.size() >= 1) edgesInPath.pop();
-                    maintain.FlowMaintain();
 
                 }
-
             }
             System.out.printf("\n Total Flow : %d \n\n", total);
             System.out.println("" + PathCollection);
