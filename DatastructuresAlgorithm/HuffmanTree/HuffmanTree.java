@@ -128,15 +128,15 @@ public class HuffmanTree {
 
     }
 
-    private void traveral(Node root, String prep){
+    private void traversal(Node root, String prep){
         if (root.right == null && root.left ==null){
 
             this.hashMap.put(root.element, prep);
             return;
         }
 
-        traveral(root.left, prep+'0');
-        traveral(root.right, prep+'1');
+        traversal(root.left, prep+'0');
+        traversal(root.right, prep+'1');
 
     }
 
@@ -157,7 +157,7 @@ public class HuffmanTree {
         buildTree(s);
 
         String prep = "";
-        traveral(root, prep);
+        traversal(root, prep);
 
         for (int i = 0; i<s.length(); i++){
             Result += this.hashMap.get(s.charAt(i));
