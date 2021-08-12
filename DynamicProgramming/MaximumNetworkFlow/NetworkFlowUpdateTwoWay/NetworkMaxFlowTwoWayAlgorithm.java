@@ -8,165 +8,165 @@ public class NetworkMaxFlowTwoWayAlgorithm<E> {
 
     public static void main(String[] args) {
 
-        NetworkMaxFlowTwoWayAlgorithm<String> MAxF = new NetworkMaxFlowTwoWayAlgorithm<>();
-        MAxF.insert("S", "V1", 25);
-        MAxF.insert("S", "V2", 30);
+        NetworkMaxFlowTwoWayAlgorithm<String> maxFlowTwoWayAlgorithm = new NetworkMaxFlowTwoWayAlgorithm<>();
+        maxFlowTwoWayAlgorithm.insert("S", "V1", 25);
+        maxFlowTwoWayAlgorithm.insert("S", "V2", 30);
 
-        MAxF.insert("V1", "V4", 15);
-        MAxF.insert("V1", "V3", 10);
+        maxFlowTwoWayAlgorithm.insert("V1", "V4", 15);
+        maxFlowTwoWayAlgorithm.insert("V1", "V3", 10);
 
-        MAxF.insert("V2", "V3", 20);
-        MAxF.insert("V3", "V5", 120);
-        MAxF.insert("V4", "V7", 12);
+        maxFlowTwoWayAlgorithm.insert("V2", "V3", 20);
+        maxFlowTwoWayAlgorithm.insert("V3", "V5", 120);
+        maxFlowTwoWayAlgorithm.insert("V4", "V7", 12);
 
-        MAxF.insert("V5", "V6", 10);
+        maxFlowTwoWayAlgorithm.insert("V5", "V6", 10);
 
-        MAxF.insert("V6", "V8", 12);
-        MAxF.insert("V6", "V7", 18);
-
-
-        MAxF.insert("V7", "T", 9);
-        MAxF.insert("V8", "T", 7);
-
-        MAxF.getMaxFlowAndAugmentingPath("S", "T");
+        maxFlowTwoWayAlgorithm.insert("V6", "V8", 12);
+        maxFlowTwoWayAlgorithm.insert("V6", "V7", 18);
 
 
-        NetworkMaxFlowTwoWayAlgorithm<String> NetworkMaxFlowAlgorithm2 = new NetworkMaxFlowTwoWayAlgorithm<>();
-        NetworkMaxFlowAlgorithm2.insert("S", "V1", 20);
-        NetworkMaxFlowAlgorithm2.insert("S", "V2", 15);
+        maxFlowTwoWayAlgorithm.insert("V7", "T", 9);
+        maxFlowTwoWayAlgorithm.insert("V8", "T", 7);
 
-        NetworkMaxFlowAlgorithm2.insert("V1", "V2", 18);
-        NetworkMaxFlowAlgorithm2.insert("V2", "V3", 10);
-        NetworkMaxFlowAlgorithm2.insert("V3", "T", 12);
-        NetworkMaxFlowAlgorithm2.insert("V1", "T", 8);
-        NetworkMaxFlowAlgorithm2.insert("V2", "T", 3);
-
-        NetworkMaxFlowAlgorithm2.getMaxFlowAndAugmentingPath("S", "T");
+        maxFlowTwoWayAlgorithm.getMaxFlowAndAugmentingPath("S", "T");
 
 
-        NetworkMaxFlowTwoWayAlgorithm<String> NetworkMaxFlowAlgorithm = new NetworkMaxFlowTwoWayAlgorithm<>();
+        NetworkMaxFlowTwoWayAlgorithm<String> maxFlowTwoWayAlgorithm1 = new NetworkMaxFlowTwoWayAlgorithm<>();
+        maxFlowTwoWayAlgorithm1.insert("S", "V1", 20);
+        maxFlowTwoWayAlgorithm1.insert("S", "V2", 15);
+
+        maxFlowTwoWayAlgorithm1.insert("V1", "V2", 18);
+        maxFlowTwoWayAlgorithm1.insert("V2", "V3", 10);
+        maxFlowTwoWayAlgorithm1.insert("V3", "T", 12);
+        maxFlowTwoWayAlgorithm1.insert("V1", "T", 8);
+        maxFlowTwoWayAlgorithm1.insert("V2", "T", 3);
+
+        maxFlowTwoWayAlgorithm1.getMaxFlowAndAugmentingPath("S", "T");
 
 
-        NetworkMaxFlowAlgorithm.insert("V0", "V1", 7);
-        NetworkMaxFlowAlgorithm.insert("V0", "V2", 2);
-        NetworkMaxFlowAlgorithm.insert("V0", "V3", 1);
-        NetworkMaxFlowAlgorithm.insert("V0", "V20", 10);
-        NetworkMaxFlowAlgorithm.insert("V0", "V21", 9);
+        NetworkMaxFlowTwoWayAlgorithm<String> maxFlowTwoWayAlgorithm2 = new NetworkMaxFlowTwoWayAlgorithm<>();
 
-        NetworkMaxFlowAlgorithm.insert("V1", "V0", 7);
-        NetworkMaxFlowAlgorithm.insert("V2", "V0", 2);
-        NetworkMaxFlowAlgorithm.insert("V3", "V0", 1);
 
-        NetworkMaxFlowAlgorithm.insert("V1", "V4", 2);
-        NetworkMaxFlowAlgorithm.insert("V1", "V5", 4);
+        maxFlowTwoWayAlgorithm2.insert("V0", "V1", 7);
+        maxFlowTwoWayAlgorithm2.insert("V0", "V2", 2);
+        maxFlowTwoWayAlgorithm2.insert("V0", "V3", 1);
+        maxFlowTwoWayAlgorithm2.insert("V0", "V20", 10);
+        maxFlowTwoWayAlgorithm2.insert("V0", "V21", 9);
+
+        maxFlowTwoWayAlgorithm2.insert("V1", "V0", 7);
+        maxFlowTwoWayAlgorithm2.insert("V2", "V0", 2);
+        maxFlowTwoWayAlgorithm2.insert("V3", "V0", 1);
+
+        maxFlowTwoWayAlgorithm2.insert("V1", "V4", 2);
+        maxFlowTwoWayAlgorithm2.insert("V1", "V5", 4);
 //
-        NetworkMaxFlowAlgorithm.insert("V4", "V1", 2);
-        NetworkMaxFlowAlgorithm.insert("V5", "V1", 4);
+        maxFlowTwoWayAlgorithm2.insert("V4", "V1", 2);
+        maxFlowTwoWayAlgorithm2.insert("V5", "V1", 4);
 
-        NetworkMaxFlowAlgorithm.insert("V2", "V5", 5);
-        NetworkMaxFlowAlgorithm.insert("V2", "V6", 6);
+        maxFlowTwoWayAlgorithm2.insert("V2", "V5", 5);
+        maxFlowTwoWayAlgorithm2.insert("V2", "V6", 6);
 //
-        NetworkMaxFlowAlgorithm.insert("V5", "V2", 5);
-        NetworkMaxFlowAlgorithm.insert("V6", "V2", 6);
+        maxFlowTwoWayAlgorithm2.insert("V5", "V2", 5);
+        maxFlowTwoWayAlgorithm2.insert("V6", "V2", 6);
 
-        NetworkMaxFlowAlgorithm.insert("V3", "V4", 4);
-        NetworkMaxFlowAlgorithm.insert("V3", "V8", 8);
-        NetworkMaxFlowAlgorithm.insert("V3", "V11", 8);
+        maxFlowTwoWayAlgorithm2.insert("V3", "V4", 4);
+        maxFlowTwoWayAlgorithm2.insert("V3", "V8", 8);
+        maxFlowTwoWayAlgorithm2.insert("V3", "V11", 8);
 ////
-        NetworkMaxFlowAlgorithm.insert("V4", "V3", 4);
-        NetworkMaxFlowAlgorithm.insert("V8", "V3", 8);
-        NetworkMaxFlowAlgorithm.insert("V11", "V3", 8);
+        maxFlowTwoWayAlgorithm2.insert("V4", "V3", 4);
+        maxFlowTwoWayAlgorithm2.insert("V8", "V3", 8);
+        maxFlowTwoWayAlgorithm2.insert("V11", "V3", 8);
 //
 //
-        NetworkMaxFlowAlgorithm.insert("V11", "V12", 8);
-        NetworkMaxFlowAlgorithm.insert("V12", "V13", 8);
-        NetworkMaxFlowAlgorithm.insert("V13", "V14", 8);
+        maxFlowTwoWayAlgorithm2.insert("V11", "V12", 8);
+        maxFlowTwoWayAlgorithm2.insert("V12", "V13", 8);
+        maxFlowTwoWayAlgorithm2.insert("V13", "V14", 8);
 
-        NetworkMaxFlowAlgorithm.insert("V4", "V7", 7);
-        NetworkMaxFlowAlgorithm.insert("V4", "V8", 6);
+        maxFlowTwoWayAlgorithm2.insert("V4", "V7", 7);
+        maxFlowTwoWayAlgorithm2.insert("V4", "V8", 6);
 //
-        NetworkMaxFlowAlgorithm.insert("V7", "V4", 7);
-        NetworkMaxFlowAlgorithm.insert("V8", "V4", 1);
+        maxFlowTwoWayAlgorithm2.insert("V7", "V4", 7);
+        maxFlowTwoWayAlgorithm2.insert("V8", "V4", 1);
 
-        NetworkMaxFlowAlgorithm.insert("V5", "V7", 3);
-        NetworkMaxFlowAlgorithm.insert("V5", "V9", 3);
-        NetworkMaxFlowAlgorithm.insert("V5", "V6", 8);
+        maxFlowTwoWayAlgorithm2.insert("V5", "V7", 3);
+        maxFlowTwoWayAlgorithm2.insert("V5", "V9", 3);
+        maxFlowTwoWayAlgorithm2.insert("V5", "V6", 8);
 
-        NetworkMaxFlowAlgorithm.insert("V7", "V5", 3);
-        NetworkMaxFlowAlgorithm.insert("V9", "V5", 3);
-        NetworkMaxFlowAlgorithm.insert("V6", "V5", 8);
+        maxFlowTwoWayAlgorithm2.insert("V7", "V5", 3);
+        maxFlowTwoWayAlgorithm2.insert("V9", "V5", 3);
+        maxFlowTwoWayAlgorithm2.insert("V6", "V5", 8);
 
-        NetworkMaxFlowAlgorithm.insert("V6", "V9", 3);
-        NetworkMaxFlowAlgorithm.insert("V9", "V6", 3);
+        maxFlowTwoWayAlgorithm2.insert("V6", "V9", 3);
+        maxFlowTwoWayAlgorithm2.insert("V9", "V6", 3);
 //
-        NetworkMaxFlowAlgorithm.insert("V7", "V10", 1);
-        NetworkMaxFlowAlgorithm.insert("V10", "V7", 1);
+        maxFlowTwoWayAlgorithm2.insert("V7", "V10", 1);
+        maxFlowTwoWayAlgorithm2.insert("V10", "V7", 1);
 
 
-        NetworkMaxFlowAlgorithm.insert("V8", "V10", 6);
-        NetworkMaxFlowAlgorithm.insert("V9", "V10", 4);
+        maxFlowTwoWayAlgorithm2.insert("V8", "V10", 6);
+        maxFlowTwoWayAlgorithm2.insert("V9", "V10", 4);
 //
-        NetworkMaxFlowAlgorithm.insert("V10", "V8", 3);
-        NetworkMaxFlowAlgorithm.insert("V10", "V9", 4);
-        NetworkMaxFlowAlgorithm.getMaxFlowAndAugmentingPath("V0", "V10");
+        maxFlowTwoWayAlgorithm2.insert("V10", "V8", 3);
+        maxFlowTwoWayAlgorithm2.insert("V10", "V9", 4);
+        maxFlowTwoWayAlgorithm2.getMaxFlowAndAugmentingPath("V0", "V10");
 
 
-        NetworkMaxFlowTwoWayAlgorithm<String> MaxFlowAlgorithmUpgrade = new NetworkMaxFlowTwoWayAlgorithm<>();
-        MaxFlowAlgorithmUpgrade.insert("V0", "V1", 5);
-        MaxFlowAlgorithmUpgrade.insert("V0", "V2", 10);
-        MaxFlowAlgorithmUpgrade.insert("V0", "V3", 5);
+        NetworkMaxFlowTwoWayAlgorithm<String> maxFlowTwoWayAlgorithm3 = new NetworkMaxFlowTwoWayAlgorithm<>();
+        maxFlowTwoWayAlgorithm3.insert("V0", "V1", 5);
+        maxFlowTwoWayAlgorithm3.insert("V0", "V2", 10);
+        maxFlowTwoWayAlgorithm3.insert("V0", "V3", 5);
 
-        MaxFlowAlgorithmUpgrade.insert("V1", "V0", 5);
-        MaxFlowAlgorithmUpgrade.insert("V2", "V0", 10);
-        MaxFlowAlgorithmUpgrade.insert("V3", "V0", 5);
+        maxFlowTwoWayAlgorithm3.insert("V1", "V0", 5);
+        maxFlowTwoWayAlgorithm3.insert("V2", "V0", 10);
+        maxFlowTwoWayAlgorithm3.insert("V3", "V0", 5);
 
-        MaxFlowAlgorithmUpgrade.insert("V1", "V4", 10);
-        MaxFlowAlgorithmUpgrade.insert("V4", "V1", 10);
-
-
-        MaxFlowAlgorithmUpgrade.insert("V2", "V1", 15);
-        MaxFlowAlgorithmUpgrade.insert("V2", "V5", 20);
-
-        MaxFlowAlgorithmUpgrade.insert("V1", "V2", 15);
-        MaxFlowAlgorithmUpgrade.insert("V5", "V2", 20);
-
-        MaxFlowAlgorithmUpgrade.insert("V3", "V6", 10);
-
-        MaxFlowAlgorithmUpgrade.insert("V6", "V3", 10);
-
-        MaxFlowAlgorithmUpgrade.insert("V4", "V7", 10);
-        MaxFlowAlgorithmUpgrade.insert("V4", "V5", 25);
-
-        MaxFlowAlgorithmUpgrade.insert("V7", "V4", 10);
-        MaxFlowAlgorithmUpgrade.insert("V5", "V4", 25);
-
-        MaxFlowAlgorithmUpgrade.insert("V5", "V8", 30);
-        MaxFlowAlgorithmUpgrade.insert("V5", "V3", 5);
-
-        MaxFlowAlgorithmUpgrade.insert("V8", "V5", 30);
-        MaxFlowAlgorithmUpgrade.insert("V3", "V5", 5);
-
-        MaxFlowAlgorithmUpgrade.insert("V6", "V8", 5);
-        MaxFlowAlgorithmUpgrade.insert("V6", "V9", 10);
-
-        MaxFlowAlgorithmUpgrade.insert("V8", "V6", 5);
-        MaxFlowAlgorithmUpgrade.insert("V9", "V6", 10);
-
-        MaxFlowAlgorithmUpgrade.insert("V7", "V10", 5);
-        MaxFlowAlgorithmUpgrade.insert("V10", "V7", 5);
+        maxFlowTwoWayAlgorithm3.insert("V1", "V4", 10);
+        maxFlowTwoWayAlgorithm3.insert("V4", "V1", 10);
 
 
-        MaxFlowAlgorithmUpgrade.insert("V8", "V10", 15);
-        MaxFlowAlgorithmUpgrade.insert("V8", "V4", 15);
-        MaxFlowAlgorithmUpgrade.insert("V8", "V9", 5);
+        maxFlowTwoWayAlgorithm3.insert("V2", "V1", 15);
+        maxFlowTwoWayAlgorithm3.insert("V2", "V5", 20);
 
-        MaxFlowAlgorithmUpgrade.insert("V10", "V8", 15);
-        MaxFlowAlgorithmUpgrade.insert("V4", "V8", 15);
-        MaxFlowAlgorithmUpgrade.insert("V9", "V8", 5);
+        maxFlowTwoWayAlgorithm3.insert("V1", "V2", 15);
+        maxFlowTwoWayAlgorithm3.insert("V5", "V2", 20);
 
-        MaxFlowAlgorithmUpgrade.insert("V9", "V10", 10);
-        MaxFlowAlgorithmUpgrade.insert("V10", "V9", 10);
-        MaxFlowAlgorithmUpgrade.getMaxFlowAndAugmentingPath("V0", "V10");
+        maxFlowTwoWayAlgorithm3.insert("V3", "V6", 10);
+
+        maxFlowTwoWayAlgorithm3.insert("V6", "V3", 10);
+
+        maxFlowTwoWayAlgorithm3.insert("V4", "V7", 10);
+        maxFlowTwoWayAlgorithm3.insert("V4", "V5", 25);
+
+        maxFlowTwoWayAlgorithm3.insert("V7", "V4", 10);
+        maxFlowTwoWayAlgorithm3.insert("V5", "V4", 25);
+
+        maxFlowTwoWayAlgorithm3.insert("V5", "V8", 30);
+        maxFlowTwoWayAlgorithm3.insert("V5", "V3", 5);
+
+        maxFlowTwoWayAlgorithm3.insert("V8", "V5", 30);
+        maxFlowTwoWayAlgorithm3.insert("V3", "V5", 5);
+
+        maxFlowTwoWayAlgorithm3.insert("V6", "V8", 5);
+        maxFlowTwoWayAlgorithm3.insert("V6", "V9", 10);
+
+        maxFlowTwoWayAlgorithm3.insert("V8", "V6", 5);
+        maxFlowTwoWayAlgorithm3.insert("V9", "V6", 10);
+
+        maxFlowTwoWayAlgorithm3.insert("V7", "V10", 5);
+        maxFlowTwoWayAlgorithm3.insert("V10", "V7", 5);
+
+
+        maxFlowTwoWayAlgorithm3.insert("V8", "V10", 15);
+        maxFlowTwoWayAlgorithm3.insert("V8", "V4", 15);
+        maxFlowTwoWayAlgorithm3.insert("V8", "V9", 5);
+
+        maxFlowTwoWayAlgorithm3.insert("V10", "V8", 15);
+        maxFlowTwoWayAlgorithm3.insert("V4", "V8", 15);
+        maxFlowTwoWayAlgorithm3.insert("V9", "V8", 5);
+
+        maxFlowTwoWayAlgorithm3.insert("V9", "V10", 10);
+        maxFlowTwoWayAlgorithm3.insert("V10", "V9", 10);
+        maxFlowTwoWayAlgorithm3.getMaxFlowAndAugmentingPath("V0", "V10");
 
     }
 
