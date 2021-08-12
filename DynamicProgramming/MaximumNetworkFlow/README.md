@@ -1,13 +1,13 @@
 INTRO:
-1. this is an implementation of an algorithm to find the network flow.
+1. this is an implementation of an algorithm of finding the network flow.
 2. I use stack, DFS to solve this problem.
 
-    - edgesInPath : is the stack contains the edge in the path that we visited, and we can update all edges in path with 
+    - edgesInPath : is the stack contains the edges in the path that we have visited, and we can update all edges in path with 
       newFlow.
       
     - visitedNodeInPath : is the stack contains the nodes that we have already visited, to control the 
       flow of the path and, because this is the two-way node, we use this stack to avoid visiting the visited
-      nodes, and avoid it to run backward the path. also, this stack contains node to be visited at the top.
+      nodes, and avoid it to run backward the path. also, this stack contains the node to be visited at the top.
       
 THE RELATIONSHIP BETWEEN THESE STACK.
 - VisitedNodeInPath - edgesInPath.
