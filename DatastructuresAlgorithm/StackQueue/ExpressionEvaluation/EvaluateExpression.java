@@ -31,9 +31,8 @@ public class EvaluateExpression {
 
             if (c == ' '){ // if it is space ==> does no thing.
                 continue;
-            }
 
-            else if (Character.isDigit(c)){ // if it is digit (number)
+            } else if (Character.isDigit(c)){ // if it is digit (number)
                 int n = 0; // we initial assign n = 0
 
                 while (Character.isDigit(c)){ // run a loop from that value to calculate that number
@@ -50,23 +49,12 @@ public class EvaluateExpression {
                 int value1 = stack.pop();
                 int value2 = stack.pop();
 
-                switch (c){
-                    case '+':
-                        stack.push(value2+value1);
-                        break;
-                    case '-':
-                        stack.push(value2-value1);
-                        break;
-                    case '*':
-                        stack.push(value2*value1);
-                        break;
-                    case '/':
-                        stack.push(value2/value1);
-                        break;
-                    case '^':
-                        stack.push(value2^value1);
-                        break;
-
+                switch (c) {
+                    case '+' -> stack.push(value2 + value1);
+                    case '-' -> stack.push(value2 - value1);
+                    case '*' -> stack.push(value2 * value1);
+                    case '/' -> stack.push(value2 / value1);
+                    case '^' -> stack.push(value2 ^ value1);
                 }
 
             }
