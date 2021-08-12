@@ -56,9 +56,12 @@ public class sort<E> {
 
         for (int leftCounter = lIndex; leftCounter < hIndex; leftCounter++) { // run leftCounter to array
 
-            if (array.get(leftCounter).destination.parentRate > pivot.destination.parentRate) { // if leftCounter found an item that > pivot ==> rightCounter run
+            // if leftCounter found an item that has it's parent rate > that has it's parent rate ==> rightCounter run
+            if (array.get(leftCounter).destination.parentRate > pivot.destination.parentRate) {
                 while (leftCounter < rightCounter) { // rightCounter run but make sure it not pass the leftCounter
-                    if (array.get(rightCounter).destination.parentRate < pivot.destination.parentRate) { // if rightCounter found an item < pivot => swap them and break.
+
+                    // if rightCounter found an item that has it's parent rate < that has it's parent rate => swap them and break.
+                    if (array.get(rightCounter).destination.parentRate < pivot.destination.parentRate) {
                         temp = array.get(leftCounter);
                         array.set(leftCounter, array.get(rightCounter));
                         array.set(rightCounter, temp);

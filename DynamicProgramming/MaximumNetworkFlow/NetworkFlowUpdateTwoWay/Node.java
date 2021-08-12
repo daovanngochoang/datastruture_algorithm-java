@@ -6,8 +6,8 @@ import java.util.LinkedList;
 public class Node<E> implements Comparable<Node<E>> {
     E item;
     LinkedList<Edge<E>> Edges;
-    int parentRate;
-    boolean deadEnd = false;
+    int parentRate; // let us know how many parents are pointing at the node.
+    boolean deadEnd = false;  // let us know that node is the deadEnd and we can not travel in this way
 
     public Node(E item) {
         this.item = item;
@@ -15,7 +15,7 @@ public class Node<E> implements Comparable<Node<E>> {
         this.parentRate = 0;
     }
 
-    protected boolean checkDeadEndStatus() {
+    protected boolean checkDeadEndStatus() { // deadEnd when all edge cap is = 0.
         for (Edge<E> edge : this.Edges) {
             if (edge.getCapability() > 0) {
                 return false;

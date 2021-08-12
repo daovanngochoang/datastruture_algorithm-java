@@ -170,7 +170,7 @@ public class NetworkMaxFlowTwoWayAlgorithm<E> {
 
     }
 
-    private void SortListEdge(Node<E> gNode) {
+    private void SortListEdge(Node<E> gNode) { // sort the edges in node based on parent rate.
         sort<E> eSort = new sort<>();
         eSort.QuickSortTraditionalMethodNonRecursion(gNode.Edges);
     }
